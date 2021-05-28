@@ -98,5 +98,14 @@
     <Resource Include="assets\logo.png" />
     <Resource Include="assets\mbIcon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\start.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\menubg.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

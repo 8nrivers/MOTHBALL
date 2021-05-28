@@ -7,7 +7,18 @@
         mc:Ignorable="d"
         Title="MOTHBALL" Height="720" Width="1280" Icon="assets/mbIcon.ico" MinWidth="1280" MinHeight="718" ResizeMode="CanMinimize">
     <Grid Background="#FF343338">
+        <Image x:Name="imgMenuBG" HorizontalAlignment="Left" Height="720" Margin="0,-12,-1286,-17" VerticalAlignment="Top" Width="2560" Source="assets/menubg.png"/>
         <Image x:Name="imgTitle" HorizontalAlignment="Left" Height="320" Margin="316,75,0,0" VerticalAlignment="Top" Width="640" Source="assets/logo.png">
+            <Image.Effect>
+                <DropShadowEffect/>
+            </Image.Effect>
+        </Image>
+        <Image HorizontalAlignment="Left" Height="60" Margin="548,400,0,0" VerticalAlignment="Top" Width="180" Source="assets/start.png">
+            <Image.Effect>
+                <DropShadowEffect/>
+            </Image.Effect>
+        </Image>
+        <Image HorizontalAlignment="Left" Height="56" Margin="1186,24,0,0" VerticalAlignment="Top" Width="56" Source="assets/exit.png">
             <Image.Effect>
                 <DropShadowEffect/>
             </Image.Effect>
