@@ -21,24 +21,66 @@ namespace MOTHBALL_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        CircleEase outCirc = new CircleEase
+        {
+            EasingMode = EasingMode.EaseOut
+        };
+
         public MainWindow()
         {
             InitializeComponent();
 
-            CircleEase easingCirc = new CircleEase();
-            easingCirc.EasingMode = EasingMode.EaseOut;
-
-            var titleDriftAnimation = new DoubleAnimation
+            var titleBounceAnimation = new DoubleAnimation
             {
-                From = 620,
-                To = 640,
+                From = 340,
+                To = 320,
                 Duration = TimeSpan.FromSeconds(1),
                 AutoReverse = true,
                 RepeatBehavior = RepeatBehavior.Forever,
-                EasingFunction = easingCirc,
+                EasingFunction = outCirc,
             };
 
-            imgTitle.BeginAnimation(WidthProperty, titleDriftAnimation);
+            var menuBGScroll = new DoubleAnimation
+            {
+                From = -0,
+                To = -1250,
+                Duration = TimeSpan.FromSeconds(20),
+                RepeatBehavior = RepeatBehavior.Forever
+            };
+
+            imgTitle.BeginAnimation(HeightProperty, titleBounceAnimation);
+            imgMenuBG.BeginAnimation(Canvas.LeftProperty, menuBGScroll);
+        }
+
+        private void RecStartAnimBounds_MouseEnter(object sender, MouseEventArgs e)
+        {
+            var startReactE = new DoubleAnimation
+            {
+                From = 420,
+                To = 400,
+                Duration = TimeSpan.FromMilliseconds(500),
+                EasingFunction = outCirc,
+            };
+
+            imgStart.BeginAnimation(Canvas.TopProperty, startReactE);
+        }
+
+        private void RecStartAnimBounds_MouseLeave(object sender, MouseEventArgs e)
+        {
+            var startReactD = new DoubleAnimation
+            {
+                From = 400,
+                To = 420,
+                Duration = TimeSpan.FromSeconds(1),
+                EasingFunction = outCirc,
+            };
+
+            imgStart.BeginAnimation(Canvas.TopProperty, startReactD);
+        }
+
+        private void ImgExit_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
         }
     }
 }

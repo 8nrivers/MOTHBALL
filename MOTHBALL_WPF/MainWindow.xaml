@@ -6,22 +6,23 @@
         xmlns:local="clr-namespace:MOTHBALL_WPF"
         mc:Ignorable="d"
         Title="MOTHBALL" Height="720" Width="1280" Icon="assets/mbIcon.ico" MinWidth="1280" MinHeight="718" ResizeMode="CanMinimize">
-    <Grid Background="#FF343338">
-        <Image x:Name="imgMenuBG" HorizontalAlignment="Left" Height="720" Margin="0,-12,-1286,-17" VerticalAlignment="Top" Width="2560" Source="assets/menubg.png"/>
+    <Canvas x:Name="cvsScreen" Background="#FF343338">
+        <Image x:Name="imgMenuBG" Canvas.Left ="0" Width="2560" Height="720" Source="assets/menubg.png" Canvas.Top="-4"/>
         <Image x:Name="imgTitle" HorizontalAlignment="Center" Height="320" Margin="318,80,320,290" VerticalAlignment="Center" Width="640" Source="assets/logo.png">
             <Image.Effect>
                 <DropShadowEffect/>
             </Image.Effect>
         </Image>
-        <Image x:Name="imgStart" HorizontalAlignment="Left" Height="60" Margin="540,400,0,0" VerticalAlignment="Top" Width="180" Source="assets/start.png">
+        <Image x:Name="imgStart" Canvas.Left="550" Canvas.Top="420" Height="60" Width="180" Source="assets/start.png">
             <Image.Effect>
                 <DropShadowEffect/>
             </Image.Effect>
         </Image>
-        <Image x:Name="imgExit" HorizontalAlignment="Left" Height="56" Margin="1186,24,0,0" VerticalAlignment="Top" Width="56" Source="assets/exit.png">
+        <Image x:Name="imgExit" HorizontalAlignment="Left" Height="56" Margin="1186,24,0,0" VerticalAlignment="Top" Width="56" Source="assets/exit.png" MouseDown="ImgExit_MouseDown">
             <Image.Effect>
-                <DropShadowEffect/>
+                <DropShadowEffect Color="#FFD81C1C"/>
             </Image.Effect>
         </Image>
-    </Grid>
+        <Rectangle x:Name="recStartAnimBounds" Fill="#00F4F4F5" Canvas.Left="550" Canvas.Top="420" Height="60" Width="180" Stroke="#00000000" MouseEnter="RecStartAnimBounds_MouseEnter" MouseLeave="RecStartAnimBounds_MouseLeave"/>
+    </Canvas>
 </Window>
