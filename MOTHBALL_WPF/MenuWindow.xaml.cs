@@ -17,16 +17,16 @@ using System.Windows.Shapes;
 namespace MOTHBALL_WPF
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MenuWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MenuWindow : Window
     {
         CircleEase outCirc = new CircleEase
         {
             EasingMode = EasingMode.EaseOut
         };
 
-        public MainWindow()
+        public MenuWindow()
         {
             InitializeComponent();
 
@@ -54,7 +54,7 @@ namespace MOTHBALL_WPF
 
         private void RecStartAnimBounds_MouseEnter(object sender, MouseEventArgs e)
         {
-            var startReactE = new DoubleAnimation
+            var upReactE = new DoubleAnimation
             {
                 From = 420,
                 To = 400,
@@ -62,12 +62,12 @@ namespace MOTHBALL_WPF
                 EasingFunction = outCirc,
             };
 
-            imgStart.BeginAnimation(Canvas.TopProperty, startReactE);
+            imgStart.BeginAnimation(Canvas.TopProperty, upReactE);
         }
 
         private void RecStartAnimBounds_MouseLeave(object sender, MouseEventArgs e)
         {
-            var startReactD = new DoubleAnimation
+            var upReactD = new DoubleAnimation
             {
                 From = 400,
                 To = 420,
@@ -75,10 +75,42 @@ namespace MOTHBALL_WPF
                 EasingFunction = outCirc,
             };
 
-            imgStart.BeginAnimation(Canvas.TopProperty, startReactD);
+            imgStart.BeginAnimation(Canvas.TopProperty, upReactD);
         }
 
-        private void ImgExit_MouseDown(object sender, MouseButtonEventArgs e)
+        private void RecExitAnimBounds_MouseEnter(object sender, MouseEventArgs e)
+        {
+            var exitReactE = new DoubleAnimation
+            {
+                From = 1170,
+                To = 1180,
+                Duration = TimeSpan.FromSeconds(1),
+                EasingFunction = outCirc,
+            };
+
+            imgExit.BeginAnimation(Canvas.LeftProperty, exitReactE);
+        }
+
+        private void RecExitAnimBounds_MouseLeave(object sender, MouseEventArgs e)
+        {
+            var exitReactD = new DoubleAnimation
+            {
+                From = 1180,
+                To = 1170,
+                Duration = TimeSpan.FromSeconds(1),
+                EasingFunction = outCirc,
+            };
+
+            imgExit.BeginAnimation(Canvas.LeftProperty, exitReactD);
+        }
+
+        private void RecStartAnimBounds_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            GameWindow game = new GameWindow();
+            game.ShowDialog();
+        }
+
+        private void RecExitAnimBounds_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.Close();
         }
