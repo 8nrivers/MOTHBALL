@@ -17,16 +17,16 @@ using System.Windows.Shapes;
 namespace MOTHBALL_WPF
 {
     /// <summary>
-    /// Interaction logic for MenuWindow.xaml
+    /// Interaction logic for MenuScreen.xaml
     /// </summary>
-    public partial class MenuWindow : Window
+    public partial class MenuScreen : Page
     {
         CircleEase outCirc = new CircleEase
         {
             EasingMode = EasingMode.EaseOut
         };
 
-        public MenuWindow()
+        public MenuScreen()
         {
             InitializeComponent();
 
@@ -106,13 +106,12 @@ namespace MOTHBALL_WPF
 
         private void RecStartAnimBounds_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            GameWindow game = new GameWindow();
-            game.ShowDialog();
+
         }
 
         private void RecExitAnimBounds_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            this.Close();
+            Application.Current.Shutdown();
         }
     }
 }

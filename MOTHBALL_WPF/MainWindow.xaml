@@ -1,4 +1,4 @@
-﻿<Window x:Name="winGame" x:Class="MOTHBALL_WPF.GameWindow"
+﻿<Window x:Name="winMenu" x:Class="MOTHBALL_WPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,5 @@
         xmlns:local="clr-namespace:MOTHBALL_WPF"
         mc:Ignorable="d"
         Title="MOTHBALL" Height="720" Width="1280" Icon="assets/mbIcon.ico" MinWidth="1280" MinHeight="720" ResizeMode="CanMinimize">
-    <Canvas x:Name="cvsScreen">
-        
-    </Canvas>
+    <Frame x:Name="frmContent" Content="game lol" HorizontalAlignment="Left" Height="720" Margin="0,0,0,0" VerticalAlignment="Top" Width="1280"/>
 </Window>
