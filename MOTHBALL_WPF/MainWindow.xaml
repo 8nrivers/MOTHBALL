@@ -6,5 +6,5 @@
         xmlns:local="clr-namespace:MOTHBALL_WPF"
         mc:Ignorable="d"
         Title="MOTHBALL" Height="720" Width="1280" Icon="assets/mbIcon.ico" MinWidth="1280" MinHeight="720" ResizeMode="CanMinimize">
-    <Frame x:Name="frmContent" Content="game lol" HorizontalAlignment="Left" Height="720" Margin="0,0,0,0" VerticalAlignment="Top" Width="1280"/>
+    <Frame x:Name="frmContent" Content="game lol" HorizontalAlignment="Left" Height="720" Margin="0,0,-6,-29" VerticalAlignment="Top" Width="1274" NavigationUIVisibility="Hidden"/>
 </Window>

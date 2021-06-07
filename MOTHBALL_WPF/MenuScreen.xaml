@@ -1,4 +1,4 @@
-﻿<Page x:Class="MOTHBALL_WPF.MenuScreen"
+﻿<Page x:Name="pagMenu" x:Class="MOTHBALL_WPF.MenuScreen"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,9 +6,9 @@
       xmlns:local="clr-namespace:MOTHBALL_WPF"
       mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="1280"
-      Title="MenuScreen">
+      Title="MenuScreen" Unloaded="PagMenu_Unloaded">
 
-    <Canvas x:Name="cvsScreen" Background="#FF343338">
+    <Canvas x:Name="cvsScreen">
         <Image x:Name="imgMenuBG" Canvas.Left ="0" Width="2560" Height="720" Source="assets/menubg.png" Canvas.Top="-4"/>
         <Image x:Name="imgTitle" HorizontalAlignment="Center" Height="320" Margin="318,80,320,290" VerticalAlignment="Center" Width="640" Source="assets/logo.png">
             <Image.Effect>

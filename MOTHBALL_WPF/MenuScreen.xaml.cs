@@ -19,6 +19,7 @@ namespace MOTHBALL_WPF
     /// <summary>
     /// Interaction logic for MenuScreen.xaml
     /// </summary>
+
     public partial class MenuScreen : Page
     {
         CircleEase outCirc = new CircleEase
@@ -106,12 +107,20 @@ namespace MOTHBALL_WPF
 
         private void RecStartAnimBounds_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            Page gamespace = new GameSpaceA();
 
+            this.NavigationService.Navigate(gamespace);
         }
 
         private void RecExitAnimBounds_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void PagMenu_Unloaded(object sender, RoutedEventArgs e)
+        {
+            imgTitle.BeginAnimation(HeightProperty, null);
+            imgMenuBG.BeginAnimation(Canvas.LeftProperty, null);
         }
     }
 }
