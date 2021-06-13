@@ -49,6 +49,25 @@ namespace MOTHBALL_WPF
                 RepeatBehavior = RepeatBehavior.Forever
             };
 
+            Storyboard titleRotate = new Storyboard();
+
+            var titleRotation = new DoubleAnimation
+            {
+                From = 0,
+                To = 3,
+                Duration = TimeSpan.FromSeconds(2),
+                AutoReverse = true,
+                RepeatBehavior = RepeatBehavior.Forever,
+                EasingFunction = outCirc,
+            };
+
+            Storyboard.SetTarget(titleRotation, imgTitle);
+            Storyboard.SetTargetProperty(titleRotation, new PropertyPath("(UIElement.RenderTransform).(RotateTransform.Angle)"));
+            titleRotate.Children.Add(titleRotation);
+
+            Resources.Add("Title Rotation", titleRotate);
+            ((Storyboard)Resources["Title Rotation"]).Begin();
+
             imgTitle.BeginAnimation(HeightProperty, titleBounceAnimation);
             imgMenuBG.BeginAnimation(Canvas.LeftProperty, menuBGScroll);
         }
@@ -119,6 +138,7 @@ namespace MOTHBALL_WPF
 
         private void PagMenu_Unloaded(object sender, RoutedEventArgs e)
         {
+            ((Storyboard)Resources["Title Rotation"]).Stop();
             imgTitle.BeginAnimation(HeightProperty, null);
             imgMenuBG.BeginAnimation(Canvas.LeftProperty, null);
         }

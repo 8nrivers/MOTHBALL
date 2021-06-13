@@ -5,10 +5,17 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MOTHBALL_WPF"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="720" d:DesignWidth="1280"
       Title="GameSpaceA">
 
     <Canvas x:Name="cvsScreen">
-        
+        <Image x:Name="imgBattle1BG" Canvas.Left ="0" Width="2560" Height="720" Source="assets/battle1bg.png" Canvas.Top="-4"/>
+        <Image x:Name="imgEnemy" Height="480" Width="480" Source="assets/enemy1.png" Canvas.Left="400" Canvas.Top="40" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <RotateTransform/>
+            </Image.RenderTransform>
+        </Image>
+
+
     </Canvas>
 </Page>

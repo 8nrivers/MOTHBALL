@@ -10,7 +10,10 @@
 
     <Canvas x:Name="cvsScreen">
         <Image x:Name="imgMenuBG" Canvas.Left ="0" Width="2560" Height="720" Source="assets/menubg.png" Canvas.Top="-4"/>
-        <Image x:Name="imgTitle" HorizontalAlignment="Center" Height="320" Margin="318,80,320,290" VerticalAlignment="Center" Width="640" Source="assets/logo.png">
+        <Image x:Name="imgTitle" HorizontalAlignment="Center" Height="320" Margin="318,80,320,290" VerticalAlignment="Center" Width="640" Source="assets/logo.png" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <RotateTransform Angle="0"/>
+            </Image.RenderTransform>
             <Image.Effect>
                 <DropShadowEffect/>
             </Image.Effect>
