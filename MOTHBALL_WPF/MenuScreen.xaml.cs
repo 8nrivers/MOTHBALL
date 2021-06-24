@@ -30,7 +30,11 @@ namespace MOTHBALL_WPF
         public MenuScreen()
         {
             InitializeComponent();
+            InitializeAnimation();
+        }
 
+        private void InitializeAnimation()
+        {
             var titleBounceAnimation = new DoubleAnimation
             {
                 From = 340,
@@ -45,7 +49,7 @@ namespace MOTHBALL_WPF
             {
                 From = -0,
                 To = -1250,
-                Duration = TimeSpan.FromSeconds(20),
+                Duration = TimeSpan.FromSeconds(30),
                 RepeatBehavior = RepeatBehavior.Forever
             };
 
@@ -76,8 +80,8 @@ namespace MOTHBALL_WPF
         {
             var upReactE = new DoubleAnimation
             {
-                From = 420,
-                To = 400,
+                From = 400,
+                To = 380,
                 Duration = TimeSpan.FromMilliseconds(500),
                 EasingFunction = outCirc,
             };
@@ -89,8 +93,8 @@ namespace MOTHBALL_WPF
         {
             var upReactD = new DoubleAnimation
             {
-                From = 400,
-                To = 420,
+                From = 380,
+                To = 400,
                 Duration = TimeSpan.FromSeconds(1),
                 EasingFunction = outCirc,
             };
@@ -104,7 +108,7 @@ namespace MOTHBALL_WPF
             {
                 From = 1170,
                 To = 1180,
-                Duration = TimeSpan.FromSeconds(1),
+                Duration = TimeSpan.FromMilliseconds(500),
                 EasingFunction = outCirc,
             };
 
@@ -141,6 +145,32 @@ namespace MOTHBALL_WPF
             ((Storyboard)Resources["Title Rotation"]).Stop();
             imgTitle.BeginAnimation(HeightProperty, null);
             imgMenuBG.BeginAnimation(Canvas.LeftProperty, null);
+        }
+
+        private void RecCreditsAnimBounds_MouseEnter(object sender, MouseEventArgs e)
+        {
+            var upReactE = new DoubleAnimation
+            {
+                From = 520,
+                To = 500,
+                Duration = TimeSpan.FromMilliseconds(500),
+                EasingFunction = outCirc,
+            };
+
+            imgCredits.BeginAnimation(Canvas.TopProperty, upReactE);
+        }
+
+        private void RecCreditsAnimBounds_MouseLeave(object sender, MouseEventArgs e)
+        {
+            var upReactD = new DoubleAnimation
+            {
+                From = 500,
+                To = 520,
+                Duration = TimeSpan.FromSeconds(1),
+                EasingFunction = outCirc,
+            };
+
+            imgCredits.BeginAnimation(Canvas.TopProperty, upReactD);
         }
     }
 }

@@ -67,6 +67,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Card.cs" />
     <Compile Include="GameSpaceA.xaml.cs">
       <DependentUpon>GameSpaceA.xaml</DependentUpon>
     </Compile>
@@ -126,6 +127,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="assets\enemy1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\credits.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

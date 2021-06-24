@@ -29,14 +29,18 @@ namespace MOTHBALL_WPF
         public GameSpaceA()
         {
             InitializeComponent();
+            InitializeAnimation();
+        }
 
+        private void InitializeAnimation()
+        {
             Storyboard enemyRotate = new Storyboard();
 
             var rotateAnimate = new DoubleAnimation
             {
-                From = -2,
-                To = 2,
-                Duration = TimeSpan.FromSeconds(3),
+                From = -1,
+                To = 1,
+                Duration = TimeSpan.FromSeconds(2),
                 AutoReverse = true,
                 RepeatBehavior = RepeatBehavior.Forever,
                 EasingFunction = inOutCirc
@@ -53,7 +57,7 @@ namespace MOTHBALL_WPF
             {
                 From = -0,
                 To = -1190,
-                Duration = TimeSpan.FromSeconds(20),
+                Duration = TimeSpan.FromSeconds(30),
                 RepeatBehavior = RepeatBehavior.Forever
             };
 
