@@ -13,6 +13,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace MOTHBALL_WPF
 {
@@ -27,9 +28,16 @@ namespace MOTHBALL_WPF
             EasingMode = EasingMode.EaseOut
         };
 
+        int transitionTime = 0;
+        DispatcherTimer transitionTimer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromMilliseconds(500)
+        };
+
         public MenuScreen()
         {
             InitializeComponent();
+            transitionTimer.Tick += TransitionTimer_Tick;
             InitializeAnimation();
         }
 
@@ -69,8 +77,7 @@ namespace MOTHBALL_WPF
             Storyboard.SetTargetProperty(titleRotation, new PropertyPath("(UIElement.RenderTransform).(RotateTransform.Angle)"));
             titleRotate.Children.Add(titleRotation);
 
-            Resources.Add("Title Rotation", titleRotate);
-            ((Storyboard)Resources["Title Rotation"]).Begin();
+            titleRotate.Begin();
 
             imgTitle.BeginAnimation(HeightProperty, titleBounceAnimation);
             imgMenuBG.BeginAnimation(Canvas.LeftProperty, menuBGScroll);
@@ -130,9 +137,29 @@ namespace MOTHBALL_WPF
 
         private void RecStartAnimBounds_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Page gamespace = new GameSpaceA();
+            var transitionSlideIn = new DoubleAnimation
+            {
+                From = 1280,
+                To = 0,
+                Duration = TimeSpan.FromMilliseconds(500),
+                EasingFunction = outCirc
+            };
 
-            this.NavigationService.Navigate(gamespace);
+            imgTransition.BeginAnimation(Canvas.LeftProperty, transitionSlideIn);
+            transitionTimer.Start();
+        }
+
+        private void TransitionTimer_Tick(object sender, EventArgs e)
+        {
+            transitionTime += 1;
+            Console.WriteLine(transitionTime);
+
+            if (transitionTime >= 1)
+            {
+                Page gamespace = new GameSpaceA();
+                transitionTimer.Stop();
+                this.NavigationService.Navigate(gamespace);
+            }
         }
 
         private void RecExitAnimBounds_MouseDown(object sender, MouseButtonEventArgs e)
@@ -142,7 +169,7 @@ namespace MOTHBALL_WPF
 
         private void PagMenu_Unloaded(object sender, RoutedEventArgs e)
         {
-            ((Storyboard)Resources["Title Rotation"]).Stop();
+            //((Storyboard)Resources["Title Rotation"]).Stop();
             imgTitle.BeginAnimation(HeightProperty, null);
             imgMenuBG.BeginAnimation(Canvas.LeftProperty, null);
         }

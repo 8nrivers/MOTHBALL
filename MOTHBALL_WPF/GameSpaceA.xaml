@@ -11,11 +11,14 @@
     <Canvas x:Name="cvsScreen">
         <Image x:Name="imgBattle1BG" Canvas.Left ="0" Width="2560" Height="720" Source="assets/battle1bg.png" Canvas.Top="-4"/>
         <Image x:Name="imgEnemy" Height="480" Width="480" Source="assets/enemy1.png" Canvas.Left="400" Canvas.Top="40" RenderTransformOrigin="0.5,0.5">
+            <Image.Effect>
+                <DropShadowEffect/>
+            </Image.Effect>
             <Image.RenderTransform>
                 <RotateTransform/>
             </Image.RenderTransform>
         </Image>
-
+        <Image x:Name="imgTransition" Height="720" Canvas.Left="1280" Canvas.Top="0" Width="1280" Source="assets/transitionscreen.png"/>
 
     </Canvas>
 </Page>

@@ -26,6 +26,11 @@ namespace MOTHBALL_WPF
             EasingMode = EasingMode.EaseInOut
         };
 
+        CircleEase inCirc = new CircleEase
+        {
+            EasingMode = EasingMode.EaseIn
+        };
+
         public GameSpaceA()
         {
             InitializeComponent();
@@ -34,6 +39,16 @@ namespace MOTHBALL_WPF
 
         private void InitializeAnimation()
         {
+            var transitionSlideOut = new DoubleAnimation
+            {
+                From = 0,
+                To = -1280,
+                Duration = TimeSpan.FromMilliseconds(500),
+                EasingFunction = inCirc
+            };
+
+            imgTransition.BeginAnimation(Canvas.LeftProperty, transitionSlideOut);
+
             Storyboard enemyRotate = new Storyboard();
 
             var rotateAnimate = new DoubleAnimation
@@ -62,6 +77,20 @@ namespace MOTHBALL_WPF
             };
 
             imgBattle1BG.BeginAnimation(Canvas.LeftProperty, battleBGScroll);
+        }
+
+        public void InitializeEncounter()
+        {
+            var turn = 0;
+
+            if (turn / 2 == 0)
+            {
+
+            }
+            else
+            {
+
+            }
         }
     }
 }
