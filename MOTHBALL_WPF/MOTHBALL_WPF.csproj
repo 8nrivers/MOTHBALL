@@ -134,5 +134,8 @@
   <ItemGroup>
     <Resource Include="assets\transitionscreen.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\bar.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

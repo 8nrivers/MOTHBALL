@@ -35,6 +35,7 @@ namespace MOTHBALL_WPF
         {
             InitializeComponent();
             InitializeAnimation();
+            InitializeEncounter();
         }
 
         private void InitializeAnimation()
@@ -48,6 +49,17 @@ namespace MOTHBALL_WPF
             };
 
             imgTransition.BeginAnimation(Canvas.LeftProperty, transitionSlideOut);
+
+            var barFadeIn = new DoubleAnimation
+            {
+                From = 0,
+                To = 100,
+                Duration = TimeSpan.FromSeconds(8),
+                EasingFunction = inCirc
+            };
+
+            imgBar.BeginAnimation(OpacityProperty, barFadeIn);
+            prgBar.BeginAnimation(OpacityProperty, barFadeIn);
 
             Storyboard enemyRotate = new Storyboard();
 
@@ -83,14 +95,20 @@ namespace MOTHBALL_WPF
         {
             var turn = 0;
 
-            if (turn / 2 == 0)
+            if (turn / 2 == 0) // player's turn
             {
 
             }
-            else
+            else if (turn == 5) // fail state
             {
 
             }
+            else // enemy's turn
+            {
+
+            }
+
+            turn += 1;
         }
     }
 }

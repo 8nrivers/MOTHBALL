@@ -18,7 +18,22 @@
                 <RotateTransform/>
             </Image.RenderTransform>
         </Image>
-        <Image x:Name="imgTransition" Height="720" Canvas.Left="1280" Canvas.Top="0" Width="1280" Source="assets/transitionscreen.png"/>
+        <ProgressBar x:Name="prgBar" Height="44" Canvas.Left="338" Canvas.Top="47" Width="604" RenderTransformOrigin="0.5,0.5" Maximum="6" Foreground="#FF781D4F" Background="#FF4F1D4C" BorderBrush="#00BCBCBC" Value="4">
+            <ProgressBar.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </ProgressBar.RenderTransform>
+        </ProgressBar>
+        <Image x:Name="imgBar" Height="400" Canvas.Left="320" Canvas.Top="-133" Width="640" Source="assets/bar.png">
+            <Image.Effect>
+                <DropShadowEffect/>
+            </Image.Effect>
+        </Image>
 
+        <Image x:Name="imgTransition" Height="720" Canvas.Left="1280" Canvas.Top="0" Width="1280" Source="assets/transitionscreen.png"/>
     </Canvas>
 </Page>
