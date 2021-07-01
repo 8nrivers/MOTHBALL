@@ -33,6 +33,11 @@
                 <DropShadowEffect/>
             </Image.Effect>
         </Image>
+        <TextBlock x:Name="txtTurnCounter" Canvas.Left="584" TextWrapping="Wrap" Text="Turn 1" Canvas.Top="120" Foreground="#FFDFE0E8" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock.Effect>
+                <DropShadowEffect/>
+            </TextBlock.Effect>
+        </TextBlock>
 
         <Image x:Name="imgTransition" Height="720" Canvas.Left="1280" Canvas.Top="0" Width="1280" Source="assets/transitionscreen.png"/>
     </Canvas>

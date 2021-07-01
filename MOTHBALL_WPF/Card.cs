@@ -14,11 +14,6 @@ namespace MOTHBALL_WPF
         public string name;
 
         /// <summary>
-        /// The position of the card in the player's hand.
-        /// </summary>
-        public int position;
-
-        /// <summary>
         /// The written description on the card. Should accurately describe its contents.
         /// </summary>
         public string description;
