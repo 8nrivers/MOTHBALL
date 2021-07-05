@@ -37,21 +37,6 @@
         <Rectangle x:Name="recCreditsAnimBounds" Fill="#00F4F4F5" Canvas.Left="515" Canvas.Top="520" Height="60" Width="250" Stroke="#00000000" MouseEnter="RecCreditsAnimBounds_MouseEnter" MouseLeave="RecCreditsAnimBounds_MouseLeave"/>
         <Rectangle x:Name="recExitAnimBounds" Fill="#00F4F4F5" Height="56" Canvas.Left="1170" Stroke="#00000000" Canvas.Top="30" Width="56" MouseEnter="RecExitAnimBounds_MouseEnter" MouseLeave="RecExitAnimBounds_MouseLeave" MouseDown="RecExitAnimBounds_MouseDown"/>
 
-        <Image x:Name="imgTransition" Source="assets/transitionscreen.png" Height="720" Canvas.Left="1280" Canvas.Top="0" Width="1280"/>
-        <TextBlock Canvas.Left="360" TextWrapping="Wrap" Text="text text text... awesome text" Canvas.Top="614" Foreground="#FFDFE0E8" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36">
-            <TextBlock.Effect>
-                <DropShadowEffect/>
-            </TextBlock.Effect>
-        </TextBlock>
-        <TextBlock Canvas.Left="892" TextWrapping="Wrap" Text="the quick brown fox jumps over the lazy dog" Canvas.Top="373" Foreground="#FFDFE0E8" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36" Width="278">
-            <TextBlock.Effect>
-                <DropShadowEffect/>
-            </TextBlock.Effect>
-        </TextBlock>
-        <TextBlock Canvas.Left="130" TextWrapping="Wrap" Text="sphinx of black quartz, judge my vow - best pangram" Canvas.Top="380" Foreground="#FFDFE0E8" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36" Width="280">
-            <TextBlock.Effect>
-                <DropShadowEffect/>
-            </TextBlock.Effect>
-        </TextBlock>
+        <Image x:Name="imgTransition" Source="assets/transitionscreen.png" Height="720" Canvas.Left="1280" Canvas.Top="0" Width="1280" Panel.ZIndex="10"/>
     </Canvas>
 </Page>

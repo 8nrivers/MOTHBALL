@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,6 +27,18 @@ namespace MOTHBALL_WPF
         public MainWindow()
         {
             InitializeComponent();
+
+            var assembly = Assembly.GetExecutingAssembly();
+            string jsonfile = assembly.GetManifestResourceNames().Single(str => str.EndsWith("cards.json"));
+
+            string json;
+
+            using (var reader = new StreamReader(assembly.GetManifestResourceStream(jsonfile)))
+            {
+                json = reader.ReadToEnd();
+            }
+
+            AppServices.cards = JsonConvert.DeserializeObject<List<AppServices.Cards>>(json);
 
             frmContent.Content = new MenuScreen();
         }

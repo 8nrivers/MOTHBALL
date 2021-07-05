@@ -33,12 +33,59 @@
                 <DropShadowEffect/>
             </Image.Effect>
         </Image>
-        <TextBlock x:Name="txtTurnCounter" Canvas.Left="584" TextWrapping="Wrap" Text="Turn 1" Canvas.Top="120" Foreground="#FFDFE0E8" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock x:Name="txtTurnCounter" Canvas.Left="540" TextWrapping="Wrap" Text="Turn 1/5" Canvas.Top="120" Foreground="#FFDFE0E8" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" TextAlignment="Center">
+            <TextBlock.Effect>
+                <DropShadowEffect/>
+            </TextBlock.Effect>
+        </TextBlock>
+        <TextBlock x:Name="txtDescription" Canvas.Left="910" TextWrapping="Wrap" Padding="8" Text="Hover over a card to see a description." Canvas.Top="240" Foreground="#FFDFE0E8" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Top" Width="317" Height="405" Background="#33000000" Margin="0">
+            <TextBlock.Effect>
+                <DropShadowEffect/>
+            </TextBlock.Effect>
+        </TextBlock>
+        <TextBlock x:Name="txtCardName" Canvas.Left="910" TextWrapping="Wrap" Text="." Canvas.Top="200" Foreground="#FFAD2F45" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Top" Width="317" Height="42">
+            <TextBlock.Effect>
+                <DropShadowEffect/>
+            </TextBlock.Effect>
+        </TextBlock>
+        <TextBlock x:Name="txtEnemyHealth" Canvas.Left="44" TextWrapping="Wrap" Text="Enemy HP: 100/100" Canvas.Top="200" Foreground="#FFDFE0E8" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Top" Width="316" Height="80" TextAlignment="Right">
             <TextBlock.Effect>
                 <DropShadowEffect/>
             </TextBlock.Effect>
         </TextBlock>
 
-        <Image x:Name="imgTransition" Height="720" Canvas.Left="1280" Canvas.Top="0" Width="1280" Source="assets/transitionscreen.png"/>
+        <Image x:Name="imgTransition" Height="720" Canvas.Left="1280" Canvas.Top="0" Width="1280" Source="assets/transitionscreen.png" Panel.ZIndex="10"/>
+        <TextBlock x:Name="txtblCard1" TextWrapping="Wrap" Height="256" Width="192" Canvas.Left="690" Canvas.Top="410" Padding="48" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" Text="content" FontSize="24">
+            <TextBlock.Effect>
+                <DropShadowEffect/>
+            </TextBlock.Effect>
+            <TextBlock.Background>
+                <ImageBrush ImageSource="assets/card.png"/>
+            </TextBlock.Background>
+        </TextBlock>
+        <TextBlock x:Name="txtblCard2" TextWrapping="Wrap" Height="256" Width="192" Canvas.Left="490" Canvas.Top="410" Padding="48" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" Text="content" FontSize="24">
+            <TextBlock.Effect>
+                <DropShadowEffect/>
+            </TextBlock.Effect>
+            <TextBlock.Background>
+                <ImageBrush ImageSource="assets/card.png"/>
+            </TextBlock.Background>
+        </TextBlock>
+        <TextBlock x:Name="txtblCard3" TextWrapping="Wrap" Height="256" Width="192" Canvas.Left="290" Canvas.Top="410" Padding="48" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" Text="content" FontSize="24">
+            <TextBlock.Effect>
+                <DropShadowEffect/>
+            </TextBlock.Effect>
+            <TextBlock.Background>
+                <ImageBrush ImageSource="assets/card.png"/>
+            </TextBlock.Background>
+        </TextBlock>
+        <TextBlock x:Name="txtblCard4" TextWrapping="Wrap" Height="256" Width="192" Canvas.Left="90" Canvas.Top="410" Padding="48" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" Text="content" FontSize="24">
+            <TextBlock.Effect>
+                <DropShadowEffect/>
+            </TextBlock.Effect>
+            <TextBlock.Background>
+                <ImageBrush ImageSource="assets/card.png"/>
+            </TextBlock.Background>
+        </TextBlock>
     </Canvas>
 </Page>
