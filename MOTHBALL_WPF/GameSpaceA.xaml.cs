@@ -31,6 +31,11 @@ namespace MOTHBALL_WPF
             EasingMode = EasingMode.EaseIn
         };
 
+        CircleEase outCirc = new CircleEase
+        {
+            EasingMode = EasingMode.EaseOut
+        };
+
         public GameSpaceA()
         {
             InitializeComponent();
@@ -95,7 +100,7 @@ namespace MOTHBALL_WPF
             imgBattle1BG.BeginAnimation(Canvas.LeftProperty, battleBGScroll);
         }
 
-        public void InitializeEncounter()
+        private void InitializeEncounter()
         {
 
             if (turn / 2 == 0) // player's turn
@@ -112,6 +117,48 @@ namespace MOTHBALL_WPF
             }
 
             turn += 1;
+        }
+
+        private void TxtblCard1_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard1, 0); }
+        private void TxtblCard1_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard1, 1); }
+        private void TxtblCard2_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard2, 0); }
+        private void TxtblCard2_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard2, 1); }
+        private void TxtblCard3_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard3, 0); }
+        private void TxtblCard3_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard3, 1); }
+        private void TxtblCard4_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard4, 0); }
+        private void TxtblCard4_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard4, 1); }
+        private void TxtblCard5_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard5, 0); }
+        private void TxtblCard5_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard5, 1); }
+
+        private void CardReacts(TextBlock card, int state)
+        {
+            switch (state)
+            {
+                case 0:
+                    var upReactE = new DoubleAnimation
+                    {
+                        From = 420,
+                        To = 400,
+                        Duration = TimeSpan.FromMilliseconds(500),
+                        EasingFunction = outCirc,
+                    };
+
+                    card.BeginAnimation(Canvas.TopProperty, upReactE);
+                    break;
+                case 1:
+                    var upReactD = new DoubleAnimation
+                    {
+                        From = 400,
+                        To = 420,
+                        Duration = TimeSpan.FromMilliseconds(500),
+                        EasingFunction = outCirc,
+                    };
+
+                    card.BeginAnimation(Canvas.TopProperty, upReactD);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

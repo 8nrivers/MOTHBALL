@@ -8,7 +8,14 @@
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="GameSpaceA">
 
-    <Canvas x:Name="cvsScreen">
+    <Canvas x:Name="cvsScreen" Background="Black">
+        <Canvas.OpacityMask>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black" Offset="0"/>
+                <GradientStop Color="White" Offset="1"/>
+            </LinearGradientBrush>
+        </Canvas.OpacityMask>
+        <Image x:Name="imgBattle1BG_Copy" Canvas.Left ="0" Width="2560" Height="720" Source="assets/battle1bg.png" Canvas.Top="-4"/>
         <Image x:Name="imgBattle1BG" Canvas.Left ="0" Width="2560" Height="720" Source="assets/battle1bg.png" Canvas.Top="-4"/>
         <Image x:Name="imgEnemy" Height="480" Width="480" Source="assets/enemy1.png" Canvas.Left="400" Canvas.Top="40" RenderTransformOrigin="0.5,0.5">
             <Image.Effect>
@@ -38,12 +45,12 @@
                 <DropShadowEffect/>
             </TextBlock.Effect>
         </TextBlock>
-        <TextBlock x:Name="txtDescription" Canvas.Left="910" TextWrapping="Wrap" Padding="8" Text="Hover over a card to see a description." Canvas.Top="240" Foreground="#FFDFE0E8" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Top" Width="317" Height="405" Background="#33000000" Margin="0">
+        <TextBlock x:Name="txtDescription" Canvas.Left="928" TextWrapping="Wrap" Padding="8" Text="Hover over a card to see a description." Canvas.Top="240" Foreground="#FFDFE0E8" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Top" Width="318" Height="405" Background="#33000000" Margin="0">
             <TextBlock.Effect>
                 <DropShadowEffect/>
             </TextBlock.Effect>
         </TextBlock>
-        <TextBlock x:Name="txtCardName" Canvas.Left="910" TextWrapping="Wrap" Text="." Canvas.Top="200" Foreground="#FFAD2F45" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Top" Width="317" Height="42">
+        <TextBlock x:Name="txtCardName" Canvas.Left="928" TextWrapping="Wrap" Text="." Canvas.Top="200" Foreground="#FFAD2F45" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Top" Width="318" Height="42">
             <TextBlock.Effect>
                 <DropShadowEffect/>
             </TextBlock.Effect>
@@ -55,7 +62,7 @@
         </TextBlock>
 
         <Image x:Name="imgTransition" Height="720" Canvas.Left="1280" Canvas.Top="0" Width="1280" Source="assets/transitionscreen.png" Panel.ZIndex="10"/>
-        <TextBlock x:Name="txtblCard1" TextWrapping="Wrap" Height="256" Width="192" Canvas.Left="690" Canvas.Top="410" Padding="48" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" Text="content" FontSize="24">
+        <TextBlock x:Name="txtblCard1" Height="224" Width="168" Canvas.Left="742" Canvas.Top="420" Padding="35" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="24" TextWrapping="Wrap" Text="content" MouseEnter="TxtblCard1_MouseEnter" MouseLeave="TxtblCard1_MouseLeave">
             <TextBlock.Effect>
                 <DropShadowEffect/>
             </TextBlock.Effect>
@@ -63,7 +70,7 @@
                 <ImageBrush ImageSource="assets/card.png"/>
             </TextBlock.Background>
         </TextBlock>
-        <TextBlock x:Name="txtblCard2" TextWrapping="Wrap" Height="256" Width="192" Canvas.Left="490" Canvas.Top="410" Padding="48" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" Text="content" FontSize="24">
+        <TextBlock x:Name="txtblCard2" Height="224" Width="168" Canvas.Left="562" Canvas.Top="420" Padding="35" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="24" TextWrapping="Wrap" Text="content">
             <TextBlock.Effect>
                 <DropShadowEffect/>
             </TextBlock.Effect>
@@ -71,7 +78,7 @@
                 <ImageBrush ImageSource="assets/card.png"/>
             </TextBlock.Background>
         </TextBlock>
-        <TextBlock x:Name="txtblCard3" TextWrapping="Wrap" Height="256" Width="192" Canvas.Left="290" Canvas.Top="410" Padding="48" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" Text="content" FontSize="24">
+        <TextBlock x:Name="txtblCard3" Height="224" Width="168" Canvas.Left="382" Canvas.Top="420" Padding="35" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="24" TextWrapping="Wrap" Text="content">
             <TextBlock.Effect>
                 <DropShadowEffect/>
             </TextBlock.Effect>
@@ -79,7 +86,15 @@
                 <ImageBrush ImageSource="assets/card.png"/>
             </TextBlock.Background>
         </TextBlock>
-        <TextBlock x:Name="txtblCard4" TextWrapping="Wrap" Height="256" Width="192" Canvas.Left="90" Canvas.Top="410" Padding="48" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" Text="content" FontSize="24">
+        <TextBlock x:Name="txtblCard4" Height="224" Width="168" Canvas.Left="202" Canvas.Top="420" Padding="35" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="24" TextWrapping="Wrap" Text="content">
+            <TextBlock.Effect>
+                <DropShadowEffect/>
+            </TextBlock.Effect>
+            <TextBlock.Background>
+                <ImageBrush ImageSource="assets/card.png"/>
+            </TextBlock.Background>
+        </TextBlock>
+        <TextBlock x:Name="txtblCard5" Height="224" Width="168" Canvas.Left="22" Canvas.Top="420" Padding="35" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="24" TextWrapping="Wrap" Text="content">
             <TextBlock.Effect>
                 <DropShadowEffect/>
             </TextBlock.Effect>
