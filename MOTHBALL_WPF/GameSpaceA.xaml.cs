@@ -37,6 +37,11 @@ namespace MOTHBALL_WPF
             EasingMode = EasingMode.EaseOut
         };
 
+        BackEase outBack = new BackEase
+        {
+            EasingMode = EasingMode.EaseOut
+        };
+
         public GameSpaceA()
         {
             InitializeComponent();
@@ -49,7 +54,7 @@ namespace MOTHBALL_WPF
             InitializeEncounter();
         }
 
-        int turn = 0;
+        const string ENEMY_ACTION_LIST = "";
 
         private void InitializeAnimation()
         {
@@ -119,21 +124,29 @@ namespace MOTHBALL_WPF
 
         private void InitializeEncounter()
         {
+            var playerHealth = 100;
+            var enemyHealth = 100;
 
-            if (turn / 2 == 0) // player's turn
-            {
+            var turn = 0;
+            var enemyActions = ENEMY_ACTION_LIST.Split('|');
 
-            }
-            else if (turn == 5) // fail state
-            {
+            //while (true)
+            //{
+            //    if (turn / 2 == 0) // player's turn
+            //    {
 
-            }
-            else // enemy's turn
-            {
+            //    }
+            //    else if (turn == 5) // win/fail state
+            //    {
+            //        break;
+            //    }
+            //    else // enemy's turn
+            //    {
+            //        txtNextEvent.Text = enemyActions[(turn - 1) / 2];
+            //    }
 
-            }
-
-            turn += 1;
+            //    turn += 1;
+            //}
         }
 
         private void TxtblCard1_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard1, 0); UpdateDecription(0); }
@@ -157,7 +170,7 @@ namespace MOTHBALL_WPF
                         From = 420,
                         To = 400,
                         Duration = TimeSpan.FromMilliseconds(500),
-                        EasingFunction = outCirc,
+                        EasingFunction = outCirc
                     };
 
                     card.BeginAnimation(Canvas.TopProperty, upReactE);
@@ -169,7 +182,7 @@ namespace MOTHBALL_WPF
                         From = 400,
                         To = 420,
                         Duration = TimeSpan.FromMilliseconds(500),
-                        EasingFunction = outCirc,
+                        EasingFunction = outCirc
                     };
 
                     card.BeginAnimation(Canvas.TopProperty, upReactD);
@@ -178,6 +191,24 @@ namespace MOTHBALL_WPF
                 default:
                     break;
             }
+        }
+
+        private void CardUsed(TextBlock card)
+        {
+            var cardUse = new DoubleAnimation
+            {
+                From = 420,
+                To = 730,
+                Duration = TimeSpan.FromSeconds(2),
+                EasingFunction = outBack
+            };
+
+            card.BeginAnimation(Canvas.TopProperty, cardUse);
+        }
+
+        private void TxtblCard1_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            CardUsed(txtblCard1);
         }
     }
 }
