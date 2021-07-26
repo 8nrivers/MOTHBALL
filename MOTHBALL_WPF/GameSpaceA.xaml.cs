@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -40,6 +41,11 @@ namespace MOTHBALL_WPF
         {
             InitializeComponent();
             InitializeAnimation();
+            LoadCard(txtblCard1, AppServices.cards[0]);
+            LoadCard(txtblCard2, AppServices.cards[1]);
+            LoadCard(txtblCard3, AppServices.cards[2]);
+            LoadCard(txtblCard4, AppServices.cards[3]);
+            LoadCard(txtblCard5, AppServices.cards[4]);
             InitializeEncounter();
         }
 
@@ -54,7 +60,7 @@ namespace MOTHBALL_WPF
                 Duration = TimeSpan.FromMilliseconds(500),
                 EasingFunction = inCirc
             };
-
+            
             imgTransition.BeginAnimation(Canvas.LeftProperty, transitionSlideOut);
 
             var fadeIn = new DoubleAnimation
@@ -100,6 +106,17 @@ namespace MOTHBALL_WPF
             imgBattle1BG.BeginAnimation(Canvas.LeftProperty, battleBGScroll);
         }
 
+        private void LoadCard(TextBlock item, AppServices.Cards card)
+        {
+            item.Text = card.name;
+        }
+
+        private void UpdateDecription(int id)
+        {
+            txtCardName.Text = AppServices.cards[id].name;
+            txtDescription.Text = AppServices.cards[id].description;
+        }
+
         private void InitializeEncounter()
         {
 
@@ -119,15 +136,15 @@ namespace MOTHBALL_WPF
             turn += 1;
         }
 
-        private void TxtblCard1_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard1, 0); }
+        private void TxtblCard1_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard1, 0); UpdateDecription(0); }
         private void TxtblCard1_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard1, 1); }
-        private void TxtblCard2_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard2, 0); }
+        private void TxtblCard2_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard2, 0); UpdateDecription(1); }
         private void TxtblCard2_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard2, 1); }
-        private void TxtblCard3_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard3, 0); }
+        private void TxtblCard3_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard3, 0); UpdateDecription(2); }
         private void TxtblCard3_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard3, 1); }
-        private void TxtblCard4_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard4, 0); }
+        private void TxtblCard4_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard4, 0); UpdateDecription(3); }
         private void TxtblCard4_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard4, 1); }
-        private void TxtblCard5_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard5, 0); }
+        private void TxtblCard5_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard5, 0); UpdateDecription(4); }
         private void TxtblCard5_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard5, 1); }
 
         private void CardReacts(TextBlock card, int state)
@@ -145,6 +162,7 @@ namespace MOTHBALL_WPF
 
                     card.BeginAnimation(Canvas.TopProperty, upReactE);
                     break;
+
                 case 1:
                     var upReactD = new DoubleAnimation
                     {
@@ -156,6 +174,7 @@ namespace MOTHBALL_WPF
 
                     card.BeginAnimation(Canvas.TopProperty, upReactD);
                     break;
+
                 default:
                     break;
             }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,6 +32,7 @@ namespace MOTHBALL_WPF
         };
 
         int transitionTime = 0;
+
         DispatcherTimer transitionTimer = new DispatcherTimer
         {
             Interval = TimeSpan.FromMilliseconds(500)
@@ -94,7 +96,7 @@ namespace MOTHBALL_WPF
                 Duration = TimeSpan.FromMilliseconds(500),
                 EasingFunction = outCirc,
             };
-
+            
             imgStart.BeginAnimation(Canvas.TopProperty, upReactE);
         }
 

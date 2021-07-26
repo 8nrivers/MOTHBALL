@@ -146,5 +146,11 @@
   <ItemGroup>
     <Resource Include="assets\card.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\enemyHurt.wav" />
+    <Content Include="assets\menuBack.wav" />
+    <Content Include="assets\menuSelect.wav" />
+    <Content Include="assets\playerHurt.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

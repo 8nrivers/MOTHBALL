@@ -1,13 +1,36 @@
-[{
-  "id": 0,
-  "name": "Shiv",
-  "description": "Take pest control into your own hands. Deals 5 damage.",
-  "contents": ""
-},
+[
+  {
+    "id": 0,
+    "name": "Shiv",
+    "description": "Take pest control into your own hands. Deals 5 damage.",
+    "contents": ""
+  },
 
-{
-  "id": 1,
-  "name": "",
-  "description": "",
-  "contents": ""
-}]
+  {
+    "id": 1,
+    "name": "test1",
+    "description": "test1",
+    "contents": ""
+  },
+
+  {
+    "id": 2,
+    "name": "test2",
+    "description": "test2",
+    "contents": ""
+  },
+
+  {
+    "id": 3,
+    "name": "test3",
+    "description": "test3",
+    "contents": ""
+  },
+
+  {
+    "id": 4,
+    "name": "test4",
+    "description": "test4",
+    "contents": ""
+  }
+]
