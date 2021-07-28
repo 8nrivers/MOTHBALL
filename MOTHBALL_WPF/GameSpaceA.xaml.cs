@@ -51,10 +51,11 @@ namespace MOTHBALL_WPF
             LoadCard(txtblCard3, AppServices.cards[2]);
             LoadCard(txtblCard4, AppServices.cards[3]);
             LoadCard(txtblCard5, AppServices.cards[4]);
+
             InitializeEncounter();
         }
 
-        const string ENEMY_ACTION_LIST = "";
+        const string ENEMY_ACTION_LIST = ".|.|.|.|.";
 
         private void InitializeAnimation()
         {
@@ -126,27 +127,59 @@ namespace MOTHBALL_WPF
         {
             var playerHealth = 100;
             var enemyHealth = 100;
-
             var turn = 0;
+
+            txtblCard1.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, 0, turn); };
+            txtblCard2.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, 1, turn); };
+            txtblCard3.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, 2, turn); };
+            txtblCard4.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, 3, turn); };
+            txtblCard5.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, 4, turn); };
+
             var enemyActions = ENEMY_ACTION_LIST.Split('|');
 
-            //while (true)
-            //{
-            //    if (turn / 2 == 0) // player's turn
-            //    {
+            while (true)
+            {
+                if (turn / 2 == 0) // player's turn
+                {
 
-            //    }
-            //    else if (turn == 5) // win/fail state
-            //    {
-            //        break;
-            //    }
-            //    else // enemy's turn
-            //    {
-            //        txtNextEvent.Text = enemyActions[(turn - 1) / 2];
-            //    }
+                }
+                else if (turn == 5) // win/fail state
+                {
+                    break;
+                }
+                else // enemy's turn
+                {
+                    txtNextEvent.Text = "Next Action: " + enemyActions[(turn - 1) / 2];
+                }
 
-            //    turn += 1;
-            //}
+                turn += 1;
+            }
+        }
+
+        void CardClick(object sender, MouseButtonEventArgs e, int card, int turn)
+        {
+            if (turn / 2 == 0)
+            {
+                switch (card)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+
+            }
         }
 
         private void TxtblCard1_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard1, 0); UpdateDecription(0); }
