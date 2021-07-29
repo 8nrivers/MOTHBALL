@@ -66,7 +66,7 @@
         </TextBlock>
 
         <Image x:Name="imgTransition" Height="720" Canvas.Left="1280" Canvas.Top="0" Width="1280" Source="assets/transitionscreen.png" Panel.ZIndex="10"/>
-        <TextBlock x:Name="txtblCard1" Height="224" Width="168" Canvas.Left="742" Canvas.Top="420" Padding="35" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="24" TextWrapping="Wrap" Text="content" MouseEnter="TxtblCard1_MouseEnter" MouseLeave="TxtblCard1_MouseLeave" MouseDown="TxtblCard1_MouseDown">
+        <TextBlock x:Name="txtblCard1" Height="224" Width="168" Canvas.Left="742" Canvas.Top="420" Padding="35" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="24" TextWrapping="Wrap" Text="content">
             <TextBlock.Effect>
                 <DropShadowEffect/>
             </TextBlock.Effect>
@@ -74,7 +74,8 @@
                 <ImageBrush ImageSource="assets/card.png"/>
             </TextBlock.Background>
         </TextBlock>
-        <TextBlock x:Name="txtblCard2" Height="224" Width="168" Canvas.Left="562" Canvas.Top="420" Padding="35" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="24" TextWrapping="Wrap" Text="content" MouseEnter="TxtblCard2_MouseEnter" MouseLeave="TxtblCard2_MouseLeave">
+        <Rectangle x:Name="recCard1Bounds" Fill="#00F4F4F5" Stroke="#00000000" Height="224" Width="168" Canvas.Left="742" Canvas.Top="420" MouseEnter="recCard1Bounds_MouseEnter" MouseLeave="recCard1Bounds_MouseLeave"/>
+        <TextBlock x:Name="txtblCard2" Height="224" Width="168" Canvas.Left="562" Canvas.Top="420" Padding="35" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="24" TextWrapping="Wrap" Text="content">
             <TextBlock.Effect>
                 <DropShadowEffect/>
             </TextBlock.Effect>
@@ -82,7 +83,8 @@
                 <ImageBrush ImageSource="assets/card.png"/>
             </TextBlock.Background>
         </TextBlock>
-        <TextBlock x:Name="txtblCard3" Height="224" Width="168" Canvas.Left="382" Canvas.Top="420" Padding="35" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="24" TextWrapping="Wrap" Text="content" MouseEnter="TxtblCard3_MouseEnter" MouseLeave="TxtblCard3_MouseLeave">
+        <Rectangle x:Name="recCard2Bounds" Fill="#00F4F4F5" Stroke="#00000000" Height="224" Width="168" Canvas.Left="562" Canvas.Top="420" MouseEnter="recCard2Bounds_MouseEnter" MouseLeave="recCard2Bounds_MouseLeave"/>
+        <TextBlock x:Name="txtblCard3" Height="224" Width="168" Canvas.Left="382" Canvas.Top="420" Padding="35" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="24" TextWrapping="Wrap" Text="content">
             <TextBlock.Effect>
                 <DropShadowEffect/>
             </TextBlock.Effect>
@@ -90,7 +92,8 @@
                 <ImageBrush ImageSource="assets/card.png"/>
             </TextBlock.Background>
         </TextBlock>
-        <TextBlock x:Name="txtblCard4" Height="224" Width="168" Canvas.Left="202" Canvas.Top="420" Padding="35" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="24" TextWrapping="Wrap" Text="content" MouseEnter="TxtblCard4_MouseEnter" MouseLeave="TxtblCard4_MouseLeave">
+        <Rectangle x:Name="recCard3Bounds" Fill="#00F4F4F5" Stroke="#00000000" Height="224" Width="168" Canvas.Left="382" Canvas.Top="420" MouseEnter="recCard3Bounds_MouseEnter" MouseLeave="recCard3Bounds_MouseLeave"/>
+        <TextBlock x:Name="txtblCard4" Height="224" Width="168" Canvas.Left="202" Canvas.Top="420" Padding="35" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="24" TextWrapping="Wrap" Text="content">
             <TextBlock.Effect>
                 <DropShadowEffect/>
             </TextBlock.Effect>
@@ -98,7 +101,8 @@
                 <ImageBrush ImageSource="assets/card.png"/>
             </TextBlock.Background>
         </TextBlock>
-        <TextBlock x:Name="txtblCard5" Height="224" Width="168" Canvas.Left="22" Canvas.Top="420" Padding="35" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="24" TextWrapping="Wrap" Text="content" MouseEnter="TxtblCard5_MouseEnter" MouseLeave="TxtblCard5_MouseLeave">
+        <Rectangle x:Name="recCard4Bounds" Fill="#00F4F4F5" Stroke="#00000000" Height="224" Width="168" Canvas.Left="202" Canvas.Top="420" MouseEnter="recCard4Bounds_MouseEnter" MouseLeave="recCard4Bounds_MouseLeave"/>
+        <TextBlock x:Name="txtblCard5" Height="224" Width="168" Canvas.Left="22" Canvas.Top="420" Padding="35" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="24" TextWrapping="Wrap" Text="content">
             <TextBlock.Effect>
                 <DropShadowEffect/>
             </TextBlock.Effect>
@@ -106,5 +110,6 @@
                 <ImageBrush ImageSource="assets/card.png"/>
             </TextBlock.Background>
         </TextBlock>
+        <Rectangle x:Name="recCard5Bounds" Fill="#00F4F4F5" Stroke="#00000000" Height="224" Width="168" Canvas.Left="22" Canvas.Top="420" MouseEnter="recCard5Bounds_MouseEnter" MouseLeave="recCard5Bounds_MouseLeave"/>
     </Canvas>
 </Page>
