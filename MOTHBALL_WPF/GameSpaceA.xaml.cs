@@ -42,6 +42,10 @@ namespace MOTHBALL_WPF
             EasingMode = EasingMode.EaseIn
         };
 
+        int playerHealth = 100;
+        int enemyHealth = 100;
+        int turn = 0;
+
         public GameSpaceA()
         {
             InitializeComponent();
@@ -125,15 +129,12 @@ namespace MOTHBALL_WPF
 
         private void InitializeEncounter()
         {
-            var playerHealth = 100;
-            var enemyHealth = 100;
-            var turn = 0;
 
-            recCard1Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, 0, turn); };
-            recCard2Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, 1, turn); };
-            recCard3Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, 2, turn); };
-            recCard4Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, 3, turn); };
-            recCard5Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, 4, turn); };
+            recCard1Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, txtblCard1, recCard1Bounds, 0, turn); };
+            recCard2Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, txtblCard2, recCard2Bounds, 1, turn); };
+            recCard3Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, txtblCard3, recCard3Bounds, 2, turn); };
+            recCard4Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, txtblCard4, recCard4Bounds, 3, turn); };
+            recCard5Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, txtblCard5, recCard5Bounds, 4, turn); };
 
             var enemyActions = ENEMY_ACTION_LIST.Split('|');
 
@@ -156,43 +157,19 @@ namespace MOTHBALL_WPF
             //}
         }
 
-        void CardClick(object sender, MouseButtonEventArgs e, int card, int turn)
+        void CardClick(object sender, MouseButtonEventArgs e, TextBlock chosenCard, Rectangle bounds, int cardID, int turn)
         {
             if (turn / 2 == 0)
             {
                 var cardUse = new DoubleAnimation
                 {
-                    From = 420,
-                    To = -240,
-                    Duration = TimeSpan.FromSeconds(1),
+                    From = 400,
+                    To = -300,
+                    Duration = TimeSpan.FromSeconds(0.75),
                     EasingFunction = inBack
                 };
 
-                TextBlock chosenCard;
-
-                switch (card)
-                {
-                    case 0:
-                        chosenCard = txtblCard1;
-                        recCard1Bounds.IsEnabled = false;
-                        break;
-                    case 1:
-                        chosenCard = txtblCard2;
-                        break;
-                    case 2:
-                        chosenCard = txtblCard3;
-                        break;
-                    case 3:
-                        chosenCard = txtblCard4;
-                        break;
-                    case 4:
-                        chosenCard = txtblCard5;
-                        break;
-                    default:
-                        chosenCard = txtblCard1;
-                        break;
-                }
-
+                bounds.IsEnabled = false;
                 chosenCard.BeginAnimation(Canvas.TopProperty, cardUse);
             }
             else
@@ -201,16 +178,16 @@ namespace MOTHBALL_WPF
             }
         }
 
-        private void recCard1Bounds_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard1, 0); UpdateDecription(0); }
-        private void recCard1Bounds_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard1, 1); }
-        private void recCard2Bounds_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard2, 0); UpdateDecription(1); }
-        private void recCard2Bounds_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard2, 1); }
-        private void recCard3Bounds_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard3, 0); UpdateDecription(2); }
-        private void recCard3Bounds_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard3, 1); }
-        private void recCard4Bounds_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard4, 0); UpdateDecription(3); }
-        private void recCard4Bounds_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard4, 1); }
-        private void recCard5Bounds_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard5, 0); UpdateDecription(4); }
-        private void recCard5Bounds_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard5, 1); }
+        private void recCard1Bounds_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard1, null, 0); UpdateDecription(0); }
+        private void recCard1Bounds_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard1, recCard1Bounds, 1); }
+        private void recCard2Bounds_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard2, null, 0); UpdateDecription(1); }
+        private void recCard2Bounds_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard2, recCard2Bounds, 1); }
+        private void recCard3Bounds_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard3, null, 0); UpdateDecription(2); }
+        private void recCard3Bounds_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard3, recCard3Bounds, 1); }
+        private void recCard4Bounds_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard4, null, 0); UpdateDecription(3); }
+        private void recCard4Bounds_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard4, recCard4Bounds, 1); }
+        private void recCard5Bounds_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard5, null, 0); UpdateDecription(4); }
+        private void recCard5Bounds_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard5, recCard5Bounds, 1); }
 
         private void CardReacts(TextBlock card, Rectangle bounds, int state)
         {
@@ -229,19 +206,18 @@ namespace MOTHBALL_WPF
                     break;
 
                 case 1:
-                    if (recCard1Bounds.IsEnabled = true)
+                    if (bounds.IsEnabled == true)
                     {
+                        var upReactD = new DoubleAnimation
+                        {
+                            From = 400,
+                            To = 420,
+                            Duration = TimeSpan.FromMilliseconds(500),
+                            EasingFunction = outCirc
+                        };
 
+                        card.BeginAnimation(Canvas.TopProperty, upReactD);
                     }
-                    var upReactD = new DoubleAnimation
-                    {
-                        From = 400,
-                        To = 420,
-                        Duration = TimeSpan.FromMilliseconds(500),
-                        EasingFunction = outCirc
-                    };
-
-                    card.BeginAnimation(Canvas.TopProperty, upReactD);
                     break;
 
                 default:
