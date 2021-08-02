@@ -137,24 +137,22 @@ namespace MOTHBALL_WPF
             recCard5Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, txtblCard5, recCard5Bounds, 4, turn); };
 
             var enemyActions = ENEMY_ACTION_LIST.Split('|');
+        }
 
-            //while (true)
-            //{
-            //    if (turn / 2 == 0) // player's turn
-            //    {
+        void UpdateTurn()
+        {
+            turn += 1;
 
-            //    }
-            //    else if (turn == 5) // win/fail state
-            //    {
-            //        break;
-            //    }
-            //    else // enemy's turn
-            //    {
-            //        txtNextEvent.Text = "Next Action: " + enemyActions[(turn - 1) / 2];
-            //    }
+            if (turn % 2 != 0)
+            {
+                EnemyAction();
+            }
+        }
 
-            //    turn += 1;
-            //}
+        void EnemyAction()
+        {
+            // put enemy action reader here
+            UpdateTurn();
         }
 
         void CardClick(object sender, MouseButtonEventArgs e, TextBlock chosenCard, Rectangle bounds, int cardID, int turn)
@@ -165,16 +163,32 @@ namespace MOTHBALL_WPF
                 {
                     From = 400,
                     To = -300,
-                    Duration = TimeSpan.FromSeconds(0.75),
+                    Duration = TimeSpan.FromSeconds(0.5),
                     EasingFunction = inBack
                 };
 
                 bounds.IsEnabled = false;
                 chosenCard.BeginAnimation(Canvas.TopProperty, cardUse);
-            }
-            else
-            {
 
+                for (int i = 0; i < AppServices.cards[cardID].contents.Length; i++)
+                {
+                    switch (AppServices.cards[cardID].contents[i])
+                    {
+                        case 'a': // Basic Attack: 1 parameter
+                            enemyHealth -= Int32.Parse(AppServices.cards[cardID].contents[i + 1].ToString());
+                            txtEnemyHealth.Text = "Enemy Health: " + enemyHealth + "/100";
+                            i++;
+                            break;
+                        case 'b': // Multiple Attack: 2 parameters
+                            break;
+                        case 'c': // Basic Defend: 1 parameter
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                UpdateTurn();
             }
         }
 
