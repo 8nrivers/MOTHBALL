@@ -59,7 +59,8 @@ namespace MOTHBALL_WPF
             InitializeEncounter();
         }
 
-        const string ENEMY_ACTION_LIST = ".|.|.|.|.";
+        static string[] enemyActionList = { "Next: Attacks for 5", ".", ".", ".", "." };
+        static string[] enemyActionContents = { "a5", "h2", ".", ".", "." };
 
         private void InitializeAnimation()
         {
@@ -129,14 +130,13 @@ namespace MOTHBALL_WPF
 
         private void InitializeEncounter()
         {
-
             recCard1Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, txtblCard1, recCard1Bounds, 0, turn); };
             recCard2Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, txtblCard2, recCard2Bounds, 1, turn); };
             recCard3Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, txtblCard3, recCard3Bounds, 2, turn); };
             recCard4Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, txtblCard4, recCard4Bounds, 3, turn); };
             recCard5Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, txtblCard5, recCard5Bounds, 4, turn); };
 
-            var enemyActions = ENEMY_ACTION_LIST.Split('|');
+            txtNextEvent.Text = enemyActionList[0];
         }
 
         void UpdateTurn()
@@ -151,13 +151,34 @@ namespace MOTHBALL_WPF
 
         void EnemyAction()
         {
-            // put enemy action reader here
+            int index = (turn - 1) / 2;
+
+            for (int i = 0; i < enemyActionContents[index].Length; i++)
+            {
+                switch (enemyActionContents[index][i])
+                {
+                    case 'a': // Basic Attack: 1 parameter
+                        playerHealth -= Int32.Parse(enemyActionContents[index][i + 1].ToString());
+                        txtPlayerHealth.Text = "Your Health: " + playerHealth + "/100";
+                        i++;
+                        break;
+                    case 'h': // Basic Heal: 1 parameter
+                        enemyHealth += Int32.Parse(enemyActionContents[index][i + 1].ToString());
+                        txtEnemyHealth.Text = "Enemy Health: " + enemyHealth + "/100";
+                        i++;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            txtNextEvent.Text = enemyActionList[index + 1];
             UpdateTurn();
         }
 
         void CardClick(object sender, MouseButtonEventArgs e, TextBlock chosenCard, Rectangle bounds, int cardID, int turn)
         {
-            if (turn / 2 == 0)
+            if (turn % 2 == 0)
             {
                 var cardUse = new DoubleAnimation
                 {
@@ -179,10 +200,13 @@ namespace MOTHBALL_WPF
                             txtEnemyHealth.Text = "Enemy Health: " + enemyHealth + "/100";
                             i++;
                             break;
-                        case 'b': // Multiple Attack: 2 parameters
+                        case 'm': // Multiple Attack: 2 parameters
                             break;
-                        case 'c': // Basic Defend: 1 parameter
+                        case 'd': // Basic Defend: 1 parameter
                             break;
+                        case 'z': // Daze
+                            break;
+                            // add more
                         default:
                             break;
                     }

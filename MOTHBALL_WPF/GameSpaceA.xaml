@@ -59,7 +59,7 @@
                 <DropShadowEffect/>
             </TextBlock.Effect>
         </TextBlock>
-        <TextBlock x:Name="txtNextEvent" Canvas.Left="365" TextWrapping="Wrap" Text="Next: Attacks for 5" Canvas.Top="52" Foreground="#FFDFE0E8" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Top" Width="550" TextAlignment="Center">
+        <TextBlock x:Name="txtNextEvent" Canvas.Left="365" TextWrapping="Wrap" Text="Next: content" Canvas.Top="52" Foreground="#FFDFE0E8" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Top" Width="550" TextAlignment="Center">
             <TextBlock.Effect>
                 <DropShadowEffect/>
             </TextBlock.Effect>
