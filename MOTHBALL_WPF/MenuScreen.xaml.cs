@@ -31,17 +31,9 @@ namespace MOTHBALL_WPF
             EasingMode = EasingMode.EaseOut
         };
 
-        int transitionTime = 0;
-
-        DispatcherTimer transitionTimer = new DispatcherTimer
-        {
-            Interval = TimeSpan.FromMilliseconds(500)
-        };
-
         public MenuScreen()
         {
             InitializeComponent();
-            transitionTimer.Tick += TransitionTimer_Tick;
             InitializeAnimation();
         }
 
@@ -139,7 +131,7 @@ namespace MOTHBALL_WPF
             imgExit.BeginAnimation(Canvas.LeftProperty, exitReactD);
         }
 
-        private void RecStartAnimBounds_MouseDown(object sender, MouseButtonEventArgs e)
+        private async void RecStartAnimBounds_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var transitionSlideIn = new DoubleAnimation
             {
@@ -150,20 +142,10 @@ namespace MOTHBALL_WPF
             };
 
             imgTransition.BeginAnimation(Canvas.LeftProperty, transitionSlideIn);
-            transitionTimer.Start();
-        }
 
-        private void TransitionTimer_Tick(object sender, EventArgs e)
-        {
-            transitionTime += 1;
-            Console.WriteLine(transitionTime);
-
-            if (transitionTime >= 1)
-            {
-                Page gamespace = new GameSpaceA();
-                transitionTimer.Stop();
-                this.NavigationService.Navigate(gamespace);
-            }
+            await Task.Delay(500);
+            Page gamespace = new GameSpaceA();
+            this.NavigationService.Navigate(gamespace);
         }
 
         private void RecExitAnimBounds_MouseDown(object sender, MouseButtonEventArgs e)

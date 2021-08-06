@@ -28,6 +28,9 @@ namespace MOTHBALL_WPF
         {
             InitializeComponent();
 
+            winMenu.Left = 320;
+            winMenu.Top = 180;
+
             var assembly = Assembly.GetExecutingAssembly();
             string jsonfile = assembly.GetManifestResourceNames().Single(str => str.EndsWith("cards.json"));
 

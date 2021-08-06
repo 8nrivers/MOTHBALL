@@ -14,6 +14,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace MOTHBALL_WPF
 {
@@ -46,6 +47,11 @@ namespace MOTHBALL_WPF
         int enemyHealth = 100;
         int turn = 0;
 
+        DispatcherTimer effectWait = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromMilliseconds(500)
+        };
+
         public GameSpaceA()
         {
             InitializeComponent();
@@ -59,7 +65,7 @@ namespace MOTHBALL_WPF
             InitializeEncounter();
         }
 
-        static string[] enemyActionList = { "Next: Attacks for 5", ".", ".", ".", "." };
+        static string[] enemyActionList = { "Next: Attacks for 5", ".", ".", ".", ".", "." };
         static string[] enemyActionContents = { "a5", "h2", ".", ".", "." };
 
         private void InitializeAnimation()
@@ -143,15 +149,19 @@ namespace MOTHBALL_WPF
         {
             turn += 1;
 
+            txtTurnCounter.Text = "Turn " + ((turn / 2) + 1) + "/5";
+
             if (turn % 2 != 0)
             {
                 EnemyAction();
             }
         }
 
-        void EnemyAction()
+        async void EnemyAction()
         {
             int index = (turn - 1) / 2;
+            
+            await Task.Delay(1000);
 
             for (int i = 0; i < enemyActionContents[index].Length; i++)
             {
@@ -160,6 +170,7 @@ namespace MOTHBALL_WPF
                     case 'a': // Basic Attack: 1 parameter
                         playerHealth -= Int32.Parse(enemyActionContents[index][i + 1].ToString());
                         txtPlayerHealth.Text = "Your Health: " + playerHealth + "/100";
+                        ScreenShake();
                         i++;
                         break;
                     case 'h': // Basic Heal: 1 parameter
@@ -176,7 +187,7 @@ namespace MOTHBALL_WPF
             UpdateTurn();
         }
 
-        void CardClick(object sender, MouseButtonEventArgs e, TextBlock chosenCard, Rectangle bounds, int cardID, int turn)
+        async void CardClick(object sender, MouseButtonEventArgs e, TextBlock chosenCard, Rectangle bounds, int cardID, int turn)
         {
             if (turn % 2 == 0)
             {
@@ -190,6 +201,8 @@ namespace MOTHBALL_WPF
 
                 bounds.IsEnabled = false;
                 chosenCard.BeginAnimation(Canvas.TopProperty, cardUse);
+
+                await Task.Delay(500);
 
                 for (int i = 0; i < AppServices.cards[cardID].contents.Length; i++)
                 {
@@ -214,6 +227,23 @@ namespace MOTHBALL_WPF
 
                 UpdateTurn();
             }
+        }
+
+        void ScreenShake()
+        {
+            var wnd = Window.GetWindow(this);
+
+            var shakeScreen = new DoubleAnimation
+            {
+                From = 305,
+                To = 335,
+                Duration = TimeSpan.FromMilliseconds(25),
+                AutoReverse = true,
+                RepeatBehavior = new RepeatBehavior(3.0)
+            };
+
+            wnd.Left = 320;
+            wnd.BeginAnimation(Window.LeftProperty, shakeScreen);
         }
 
         private void recCard1Bounds_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard1, null, 0); UpdateDecription(0); }
