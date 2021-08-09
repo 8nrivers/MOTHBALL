@@ -58,6 +58,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="TransitionScreen.xaml.cs">
+      <DependentUpon>TransitionScreen.xaml</DependentUpon>
+    </Compile>
+    <Page Include="CreditsScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GameSpaceA.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -71,6 +78,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppServices.cs" />
+    <Compile Include="CreditsScreen.xaml.cs">
+      <DependentUpon>CreditsScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GameSpaceA.xaml.cs">
       <DependentUpon>GameSpaceA.xaml</DependentUpon>
     </Compile>
@@ -79,6 +89,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MenuScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TransitionScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

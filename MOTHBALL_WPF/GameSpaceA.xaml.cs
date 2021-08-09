@@ -43,6 +43,11 @@ namespace MOTHBALL_WPF
             EasingMode = EasingMode.EaseIn
         };
 
+        ElasticEase outElastic = new ElasticEase
+        {
+            EasingMode = EasingMode.EaseOut
+        };
+
         int playerHealth = 100;
         int enemyHealth = 100;
         int turn = 0;
@@ -70,6 +75,18 @@ namespace MOTHBALL_WPF
 
         private void InitializeAnimation()
         {
+            var wnd = Window.GetWindow(this);
+
+            var wndTransitionEnd = new DoubleAnimation
+            {
+                From = 2360,
+                To = 320,
+                Duration = TimeSpan.FromMilliseconds(500),
+                EasingFunction = outCirc
+            };
+
+            wnd.BeginAnimation(Window.LeftProperty, wndTransitionEnd);
+
             var transitionSlideOut = new DoubleAnimation
             {
                 From = 0,
@@ -150,6 +167,7 @@ namespace MOTHBALL_WPF
             turn += 1;
 
             txtTurnCounter.Text = "Turn " + ((turn / 2) + 1) + "/5";
+            prgBar.Value = (turn / 2);
 
             if (turn % 2 != 0)
             {
@@ -161,7 +179,7 @@ namespace MOTHBALL_WPF
         {
             int index = (turn - 1) / 2;
             
-            await Task.Delay(1000);
+            await Task.Delay(1500);
 
             for (int i = 0; i < enemyActionContents[index].Length; i++)
             {
@@ -170,7 +188,6 @@ namespace MOTHBALL_WPF
                     case 'a': // Basic Attack: 1 parameter
                         playerHealth -= Int32.Parse(enemyActionContents[index][i + 1].ToString());
                         txtPlayerHealth.Text = "Your Health: " + playerHealth + "/100";
-                        ScreenShake();
                         i++;
                         break;
                     case 'h': // Basic Heal: 1 parameter
@@ -183,6 +200,7 @@ namespace MOTHBALL_WPF
                 }
             }
 
+            ScreenShake(20);
             txtNextEvent.Text = enemyActionList[index + 1];
             UpdateTurn();
         }
@@ -201,6 +219,7 @@ namespace MOTHBALL_WPF
 
                 bounds.IsEnabled = false;
                 chosenCard.BeginAnimation(Canvas.TopProperty, cardUse);
+                UpdateTurn();
 
                 await Task.Delay(500);
 
@@ -225,24 +244,22 @@ namespace MOTHBALL_WPF
                     }
                 }
 
-                UpdateTurn();
+                ScreenShake(10);
             }
         }
 
-        void ScreenShake()
+        void ScreenShake(int intensity)
         {
             var wnd = Window.GetWindow(this);
 
             var shakeScreen = new DoubleAnimation
             {
-                From = 305,
-                To = 335,
-                Duration = TimeSpan.FromMilliseconds(25),
-                AutoReverse = true,
-                RepeatBehavior = new RepeatBehavior(3.0)
+                From = 320 + intensity,
+                To = 320,
+                Duration = TimeSpan.FromMilliseconds(500),
+                EasingFunction = outElastic
             };
 
-            wnd.Left = 320;
             wnd.BeginAnimation(Window.LeftProperty, shakeScreen);
         }
 

@@ -26,6 +26,11 @@ namespace MOTHBALL_WPF
 
     public partial class MenuScreen : Page
     {
+        CircleEase inCirc = new CircleEase
+        {
+            EasingMode = EasingMode.EaseIn
+        };
+
         CircleEase outCirc = new CircleEase
         {
             EasingMode = EasingMode.EaseOut
@@ -39,6 +44,8 @@ namespace MOTHBALL_WPF
 
         private void InitializeAnimation()
         {
+            TransitionOut();
+
             var titleBounceAnimation = new DoubleAnimation
             {
                 From = 340,
@@ -77,6 +84,21 @@ namespace MOTHBALL_WPF
 
             imgTitle.BeginAnimation(HeightProperty, titleBounceAnimation);
             imgMenuBG.BeginAnimation(Canvas.LeftProperty, menuBGScroll);
+        }
+
+        async void TransitionOut()
+        {
+            var transitionSlideOut = new DoubleAnimation
+            {
+                From = 0,
+                To = -1280,
+                Duration = TimeSpan.FromMilliseconds(500),
+                EasingFunction = inCirc
+            };
+
+            await Task.Delay(1000);
+
+            imgTransition.BeginAnimation(Canvas.LeftProperty, transitionSlideOut);
         }
 
         private void RecStartAnimBounds_MouseEnter(object sender, MouseEventArgs e)
@@ -141,15 +163,39 @@ namespace MOTHBALL_WPF
                 EasingFunction = outCirc
             };
 
+            var wnd = Window.GetWindow(this);
+
+            var wndTransitionStart = new DoubleAnimation
+            {
+                From = 320,
+                To = -1280,
+                Duration = TimeSpan.FromMilliseconds(500),
+                EasingFunction = inCirc
+            };
+
             imgTransition.BeginAnimation(Canvas.LeftProperty, transitionSlideIn);
+            wnd.BeginAnimation(Window.LeftProperty, wndTransitionStart);
 
             await Task.Delay(500);
             Page gamespace = new GameSpaceA();
             this.NavigationService.Navigate(gamespace);
         }
 
-        private void RecExitAnimBounds_MouseDown(object sender, MouseButtonEventArgs e)
+        private async void RecExitAnimBounds_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            var wnd = Window.GetWindow(this);
+
+            var dropScreen = new DoubleAnimation
+            {
+                From = 180,
+                To = 1080,
+                Duration = TimeSpan.FromMilliseconds(500),
+                EasingFunction = inCirc
+            };
+
+            wnd.BeginAnimation(Window.TopProperty, dropScreen);
+            await Task.Delay(1000);
+
             Application.Current.Shutdown();
         }
 

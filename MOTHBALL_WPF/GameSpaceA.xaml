@@ -19,7 +19,7 @@
                 <RotateTransform/>
             </Image.RenderTransform>
         </Image>
-        <ProgressBar x:Name="prgBar" Height="44" Canvas.Left="338" Canvas.Top="47" Width="604" RenderTransformOrigin="0.5,0.5" Maximum="6" Foreground="#FF781D4F" Background="#FF4F1D4C" BorderBrush="#00BCBCBC" Value="4">
+        <ProgressBar x:Name="prgBar" Height="44" Canvas.Left="338" Canvas.Top="47" Width="604" RenderTransformOrigin="0.5,0.5" Maximum="5" Foreground="#FF781D4F" Background="#FF4F1D4C" BorderBrush="#00BCBCBC">
             <ProgressBar.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
