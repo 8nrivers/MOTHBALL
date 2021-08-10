@@ -70,18 +70,18 @@ namespace MOTHBALL_WPF
             InitializeEncounter();
         }
 
+        readonly Window wnd = Window.GetWindow(Application.Current.MainWindow);
+
         static string[] enemyActionList = { "Next: Attacks for 5", ".", ".", ".", ".", "." };
         static string[] enemyActionContents = { "a5", "h2", ".", ".", "." };
 
         private void InitializeAnimation()
         {
-            var wnd = Window.GetWindow(this);
-
             var wndTransitionEnd = new DoubleAnimation
             {
-                From = 2360,
+                From = 2460,
                 To = 320,
-                Duration = TimeSpan.FromMilliseconds(500),
+                Duration = TimeSpan.FromMilliseconds(1000),
                 EasingFunction = outCirc
             };
 
@@ -91,7 +91,7 @@ namespace MOTHBALL_WPF
             {
                 From = 0,
                 To = -1280,
-                Duration = TimeSpan.FromMilliseconds(500),
+                Duration = TimeSpan.FromMilliseconds(1000),
                 EasingFunction = inCirc
             };
             
@@ -167,12 +167,24 @@ namespace MOTHBALL_WPF
             turn += 1;
 
             txtTurnCounter.Text = "Turn " + ((turn / 2) + 1) + "/5";
-            prgBar.Value = (turn / 2);
+            ProgressBarUpdate(prgBar, turn / 2);
 
             if (turn % 2 != 0)
             {
                 EnemyAction();
             }
+        }
+
+        void ProgressBarUpdate(ProgressBar bar, int position)
+        {
+            var animateUpdate = new DoubleAnimation
+            {
+                To = position,
+                Duration = TimeSpan.FromMilliseconds(500),
+                EasingFunction = outElastic
+            };
+
+            bar.BeginAnimation(ProgressBar.ValueProperty, animateUpdate);
         }
 
         async void EnemyAction()
@@ -188,6 +200,7 @@ namespace MOTHBALL_WPF
                     case 'a': // Basic Attack: 1 parameter
                         playerHealth -= Int32.Parse(enemyActionContents[index][i + 1].ToString());
                         txtPlayerHealth.Text = "Your Health: " + playerHealth + "/100";
+                        HealthShake(0);
                         i++;
                         break;
                     case 'h': // Basic Heal: 1 parameter
@@ -202,6 +215,13 @@ namespace MOTHBALL_WPF
 
             ScreenShake(20);
             txtNextEvent.Text = enemyActionList[index + 1];
+
+            var redUpdate = new ColorAnimation
+            {
+                From = Color.FromRgb(186, 48, 48)
+            };
+
+            txtTurnCounter.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, redUpdate);
             UpdateTurn();
         }
 
@@ -230,6 +250,7 @@ namespace MOTHBALL_WPF
                         case 'a': // Basic Attack: 1 parameter
                             enemyHealth -= Int32.Parse(AppServices.cards[cardID].contents[i + 1].ToString());
                             txtEnemyHealth.Text = "Enemy Health: " + enemyHealth + "/100";
+                            HealthShake(1);
                             i++;
                             break;
                         case 'm': // Multiple Attack: 2 parameters
@@ -248,10 +269,47 @@ namespace MOTHBALL_WPF
             }
         }
 
+        void HealthShake(int toShake)
+        {
+            var shakeHealth = new DoubleAnimation
+            {
+                From = 42,
+                To = 22,
+                Duration = TimeSpan.FromMilliseconds(500),
+                EasingFunction = outElastic
+            };
+
+            var shakeEnemy = new DoubleAnimation
+            {
+                From = 440,
+                To = 400,
+                Duration = TimeSpan.FromMilliseconds(500),
+                EasingFunction = outElastic
+            };
+
+            var redHealth = new ColorAnimation
+            {
+                From = Color.FromRgb(186, 48, 48)
+            };
+
+            switch (toShake)
+            {
+                case 0: // player
+                    txtPlayerHealth.BeginAnimation(Canvas.LeftProperty, shakeHealth);
+                    txtPlayerHealth.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, redHealth);
+                    break;
+                case 1: // enemy
+                    txtEnemyHealth.BeginAnimation(Canvas.LeftProperty, shakeHealth);
+                    txtEnemyHealth.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, redHealth);
+                    imgEnemy.BeginAnimation(Canvas.LeftProperty, shakeEnemy);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         void ScreenShake(int intensity)
         {
-            var wnd = Window.GetWindow(this);
-
             var shakeScreen = new DoubleAnimation
             {
                 From = 320 + intensity,

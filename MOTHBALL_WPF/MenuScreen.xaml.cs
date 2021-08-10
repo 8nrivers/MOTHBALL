@@ -42,6 +42,7 @@ namespace MOTHBALL_WPF
             InitializeAnimation();
         }
 
+        Window wnd = Window.GetWindow(Application.Current.MainWindow);
         private void InitializeAnimation()
         {
             TransitionOut();
@@ -159,32 +160,28 @@ namespace MOTHBALL_WPF
             {
                 From = 1280,
                 To = 0,
-                Duration = TimeSpan.FromMilliseconds(500),
+                Duration = TimeSpan.FromMilliseconds(1000),
                 EasingFunction = outCirc
             };
-
-            var wnd = Window.GetWindow(this);
 
             var wndTransitionStart = new DoubleAnimation
             {
                 From = 320,
                 To = -1280,
-                Duration = TimeSpan.FromMilliseconds(500),
+                Duration = TimeSpan.FromMilliseconds(1000),
                 EasingFunction = inCirc
             };
 
             imgTransition.BeginAnimation(Canvas.LeftProperty, transitionSlideIn);
             wnd.BeginAnimation(Window.LeftProperty, wndTransitionStart);
 
-            await Task.Delay(500);
+            await Task.Delay(1000);
             Page gamespace = new GameSpaceA();
             this.NavigationService.Navigate(gamespace);
         }
 
         private async void RecExitAnimBounds_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var wnd = Window.GetWindow(this);
-
             var dropScreen = new DoubleAnimation
             {
                 From = 180,
