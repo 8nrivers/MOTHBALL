@@ -30,6 +30,7 @@ namespace MOTHBALL_WPF
 
             winMenu.Left = 320;
             winMenu.Top = 180;
+            AppServices.cutsceneNumber = 0;
 
             var assembly = Assembly.GetExecutingAssembly();
             string jsonfile = assembly.GetManifestResourceNames().Single(str => str.EndsWith("cards.json"));

@@ -35,5 +35,6 @@ namespace MOTHBALL_WPF
         }
 
         public static List<Cards> cards { get; set; }
+        public static int cutsceneNumber;
     }
 }

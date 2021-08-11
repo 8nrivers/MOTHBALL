@@ -191,7 +191,7 @@ namespace MOTHBALL_WPF
         {
             int index = (turn - 1) / 2;
             
-            await Task.Delay(1500);
+            await Task.Delay(2000);
 
             for (int i = 0; i < enemyActionContents[index].Length; i++)
             {
@@ -247,25 +247,36 @@ namespace MOTHBALL_WPF
                 {
                     switch (AppServices.cards[cardID].contents[i])
                     {
-                        case 'a': // Basic Attack: 1 parameter
+                        case 'a': // Basic Attack: 1 parameter (dmg)
                             enemyHealth -= Int32.Parse(AppServices.cards[cardID].contents[i + 1].ToString());
                             txtEnemyHealth.Text = "Enemy Health: " + enemyHealth + "/100";
                             HealthShake(1);
+                            ScreenShake(10);
                             i++;
                             break;
-                        case 'm': // Multiple Attack: 2 parameters
+                        case 'm': // Multiple Attack: 2 parameters (amount, dmg)
+                            for (int j = 0; j < Int32.Parse(AppServices.cards[cardID].contents[i + 1].ToString()); j++)
+                            {
+                                enemyHealth -= Int32.Parse(AppServices.cards[cardID].contents[i + 2].ToString());
+                                txtEnemyHealth.Text = "Enemy Health: " + enemyHealth + "/100";
+                                HealthShake(1);
+                                ScreenShake(5);
+                                await Task.Delay(250);
+                            }
+                            i += 2;
                             break;
-                        case 'd': // Basic Defend: 1 parameter
+                        case 'd': // Basic Defend: 1 parameter (defense points added)
+                            break;
+                        case 'w': // Weaken: 1 parameter (length of weaken)
                             break;
                         case 'z': // Daze
                             break;
                             // add more
                         default:
+                            ScreenShake(10);
                             break;
                     }
                 }
-
-                ScreenShake(10);
             }
         }
 
