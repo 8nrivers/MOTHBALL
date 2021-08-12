@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using MOTHBALL_WPF.Properties;
 
 namespace MOTHBALL_WPF
 {
@@ -43,19 +44,23 @@ namespace MOTHBALL_WPF
             EasingMode = EasingMode.EaseIn
         };
 
+        BackEase outBack = new BackEase
+        {
+            EasingMode = EasingMode.EaseOut
+        };
+
         ElasticEase outElastic = new ElasticEase
         {
             EasingMode = EasingMode.EaseOut
         };
 
-        int playerHealth = 100;
-        int enemyHealth = 100;
-        int turn = 0;
-
-        DispatcherTimer effectWait = new DispatcherTimer
-        {
-            Interval = TimeSpan.FromMilliseconds(500)
-        };
+        const int MAX_P_HEALTH = 15;
+        const int MAX_E_HEALTH = 25;
+        int playerHealth = MAX_P_HEALTH;
+        int enemyHealth = MAX_E_HEALTH;
+        bool dazed;
+        int vulnerableTimer;
+        int turn;
 
         public GameSpaceA()
         {
@@ -70,10 +75,11 @@ namespace MOTHBALL_WPF
             InitializeEncounter();
         }
 
+        MediaPlayer mPlayer = new MediaPlayer();
         readonly Window wnd = Window.GetWindow(Application.Current.MainWindow);
 
-        static string[] enemyActionList = { "Next: Attacks for 5", ".", ".", ".", ".", "." };
-        static string[] enemyActionContents = { "a5", "h2", ".", ".", "." };
+        static string[] enemyActionList = { "Next: Attacks for 5", "Next: Heals for 5", "Next: Attacks for 6", "Next: Heals for 2", "Next: Attacks for 4", "Time's Up!" };
+        static string[] enemyActionContents = { "a5", "h5", "a6", "h2", "a4" };
 
         private void InitializeAnimation()
         {
@@ -143,6 +149,7 @@ namespace MOTHBALL_WPF
         private void LoadCard(TextBlock item, AppServices.Cards card)
         {
             item.Text = card.name;
+            Canvas.SetTop(item, 720);
         }
 
         private void UpdateDecription(int id)
@@ -159,7 +166,46 @@ namespace MOTHBALL_WPF
             recCard4Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, txtblCard4, recCard4Bounds, 3, turn); };
             recCard5Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, txtblCard5, recCard5Bounds, 4, turn); };
 
+            recCard1Bounds.IsEnabled = false;
+            recCard2Bounds.IsEnabled = false;
+            recCard3Bounds.IsEnabled = false;
+            recCard4Bounds.IsEnabled = false;
+            recCard5Bounds.IsEnabled = false;
+
+            playerHealth = MAX_P_HEALTH;
+            enemyHealth = MAX_E_HEALTH;
+            txtPlayerHealth.Text = "Your Health: " + MAX_P_HEALTH + "/" + MAX_P_HEALTH;
+            txtEnemyHealth.Text = "Enemy Health: " + MAX_E_HEALTH + "/" + MAX_E_HEALTH;
             txtNextEvent.Text = enemyActionList[0];
+            ProgressBarUpdate(prgBar, 0);
+            txtTurnCounter.Text = "Turn 1/5";
+
+            dazed = false;
+            imgDaze.Visibility = Visibility.Hidden;
+            vulnerableTimer = 0;
+            imgVulnerable.Visibility = Visibility.Hidden;
+            txtVulnerable.Visibility = Visibility.Hidden;
+            turn = 0;
+
+            ReEnableCard(txtblCard1, recCard1Bounds);
+            ReEnableCard(txtblCard2, recCard2Bounds);
+            ReEnableCard(txtblCard3, recCard3Bounds);
+            ReEnableCard(txtblCard4, recCard4Bounds);
+            ReEnableCard(txtblCard5, recCard5Bounds);
+        }
+
+        async void ReEnableCard(TextBlock card, Rectangle bounds)
+        {
+            var returnCard = new DoubleAnimation
+            {
+                From = 720,
+                To = 420,
+                Duration = TimeSpan.FromMilliseconds(1000),
+                EasingFunction = outBack
+            };
+            card.BeginAnimation(Canvas.TopProperty, returnCard);
+            await Task.Delay(1000);
+            bounds.IsEnabled = true;
         }
 
         void UpdateTurn()
@@ -169,7 +215,11 @@ namespace MOTHBALL_WPF
             txtTurnCounter.Text = "Turn " + ((turn / 2) + 1) + "/5";
             ProgressBarUpdate(prgBar, turn / 2);
 
-            if (turn % 2 != 0)
+            if (turn > 9)
+            {
+                PlayerDies(0);
+            }
+            else if (turn % 2 != 0)
             {
                 EnemyAction();
             }
@@ -193,40 +243,59 @@ namespace MOTHBALL_WPF
             
             await Task.Delay(2000);
 
-            for (int i = 0; i < enemyActionContents[index].Length; i++)
+            if (enemyHealth > 0)
             {
-                switch (enemyActionContents[index][i])
+                if (dazed != true)
                 {
-                    case 'a': // Basic Attack: 1 parameter
-                        playerHealth -= Int32.Parse(enemyActionContents[index][i + 1].ToString());
-                        txtPlayerHealth.Text = "Your Health: " + playerHealth + "/100";
-                        HealthShake(0);
-                        i++;
-                        break;
-                    case 'h': // Basic Heal: 1 parameter
-                        enemyHealth += Int32.Parse(enemyActionContents[index][i + 1].ToString());
-                        txtEnemyHealth.Text = "Enemy Health: " + enemyHealth + "/100";
-                        i++;
-                        break;
-                    default:
-                        break;
+                    for (int i = 0; i < enemyActionContents[index].Length; i++)
+                    {
+                        switch (enemyActionContents[index][i])
+                        {
+                            case 'a': // Basic Attack: 1 parameter
+                                playerHealth -= Int32.Parse(enemyActionContents[index][i + 1].ToString());
+                                ScreenShake(20);
+                                HealthShake(0);
+                                i++;
+                                break;
+                            case 'h': // Basic Heal: 1 parameter
+                                enemyHealth += Int32.Parse(enemyActionContents[index][i + 1].ToString());
+                                ScreenShake(5);
+                                HealthShake(3);
+                                i++;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 }
+                else
+                {
+                    ScreenShake(5);
+                    dazed = false;
+                    imgDaze.Visibility = Visibility.Hidden;
+                }
+
+                txtNextEvent.Text = enemyActionList[index + 1];
+
+                var redUpdate = new ColorAnimation
+                {
+                    From = Color.FromRgb(186, 48, 48)
+                };
+
+                txtTurnCounter.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, redUpdate);
+                txtNextEvent.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, redUpdate);
+                UpdateTurn();
             }
-
-            ScreenShake(20);
-            txtNextEvent.Text = enemyActionList[index + 1];
-
-            var redUpdate = new ColorAnimation
+            else
             {
-                From = Color.FromRgb(186, 48, 48)
-            };
-
-            txtTurnCounter.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, redUpdate);
-            UpdateTurn();
+                EnemyDies();
+            }
         }
 
         async void CardClick(object sender, MouseButtonEventArgs e, TextBlock chosenCard, Rectangle bounds, int cardID, int turn)
         {
+            bool vulnerabilityUsed = false;
+
             if (turn % 2 == 0)
             {
                 var cardUse = new DoubleAnimation
@@ -248,8 +317,28 @@ namespace MOTHBALL_WPF
                     switch (AppServices.cards[cardID].contents[i])
                     {
                         case 'a': // Basic Attack: 1 parameter (dmg)
-                            enemyHealth -= Int32.Parse(AppServices.cards[cardID].contents[i + 1].ToString());
-                            txtEnemyHealth.Text = "Enemy Health: " + enemyHealth + "/100";
+                            if (vulnerableTimer > 0)
+                            {
+                                enemyHealth -= Int32.Parse(AppServices.cards[cardID].contents[i + 1].ToString()) + 2;
+                                var vulnShake = new DoubleAnimation
+                                {
+                                    From = 794,
+                                    Duration = TimeSpan.FromMilliseconds(500),
+                                    EasingFunction = outElastic
+                                };
+                                var vulnTShake = new DoubleAnimation
+                                {
+                                    From = 834,
+                                    Duration = TimeSpan.FromMilliseconds(500),
+                                    EasingFunction = outElastic
+                                };
+                                imgVulnerable.BeginAnimation(Canvas.LeftProperty, vulnShake);
+                                txtVulnerable.BeginAnimation(Canvas.LeftProperty, vulnTShake);
+                            }
+                            else
+                            {
+                                enemyHealth -= Int32.Parse(AppServices.cards[cardID].contents[i + 1].ToString());
+                            }
                             HealthShake(1);
                             ScreenShake(10);
                             i++;
@@ -257,8 +346,28 @@ namespace MOTHBALL_WPF
                         case 'm': // Multiple Attack: 2 parameters (amount, dmg)
                             for (int j = 0; j < Int32.Parse(AppServices.cards[cardID].contents[i + 1].ToString()); j++)
                             {
-                                enemyHealth -= Int32.Parse(AppServices.cards[cardID].contents[i + 2].ToString());
-                                txtEnemyHealth.Text = "Enemy Health: " + enemyHealth + "/100";
+                                if (vulnerableTimer > 0)
+                                {
+                                    enemyHealth -= Int32.Parse(AppServices.cards[cardID].contents[i + 2].ToString()) + 2;
+                                    var vulnShake = new DoubleAnimation
+                                    {
+                                        From = 794,
+                                        Duration = TimeSpan.FromMilliseconds(500),
+                                        EasingFunction = outElastic
+                                    };
+                                    var vulnTShake = new DoubleAnimation
+                                    {
+                                        From = 834,
+                                        Duration = TimeSpan.FromMilliseconds(500),
+                                        EasingFunction = outElastic
+                                    };
+                                    imgVulnerable.BeginAnimation(Canvas.LeftProperty, vulnShake);
+                                    txtVulnerable.BeginAnimation(Canvas.LeftProperty, vulnTShake);
+                                }
+                                else
+                                {
+                                    enemyHealth -= Int32.Parse(AppServices.cards[cardID].contents[i + 2].ToString());
+                                }
                                 HealthShake(1);
                                 ScreenShake(5);
                                 await Task.Delay(250);
@@ -267,15 +376,62 @@ namespace MOTHBALL_WPF
                             break;
                         case 'd': // Basic Defend: 1 parameter (defense points added)
                             break;
-                        case 'w': // Weaken: 1 parameter (length of weaken)
+                        case 'v': // Inflict Vulnerable: 1 parameter (length of vuln)
+                            var inflictVulnShake = new DoubleAnimation
+                            {
+                                From = 794,
+                                Duration = TimeSpan.FromMilliseconds(500),
+                                EasingFunction = outElastic
+                            };
+                            var vulnTextShake = new DoubleAnimation
+                            {
+                                From = 834,
+                                Duration = TimeSpan.FromMilliseconds(500),
+                                EasingFunction = outElastic
+                            };
+                            vulnerableTimer = Int32.Parse(AppServices.cards[cardID].contents[i + 1].ToString());
+                            imgVulnerable.Visibility = Visibility.Visible;
+                            txtVulnerable.Visibility = Visibility.Visible;
+                            imgVulnerable.BeginAnimation(Canvas.LeftProperty, inflictVulnShake);
+                            txtVulnerable.BeginAnimation(Canvas.LeftProperty, vulnTextShake);
+                            txtVulnerable.Text = vulnerableTimer.ToString();
+                            HealthShake(4);
+                            vulnerabilityUsed = true;
+                            i++;
                             break;
-                        case 'z': // Daze
+                        case 'z': // Inflict Daze
+                            var inflictDazeShake = new DoubleAnimation
+                            {
+                                From = 864,
+                                Duration = TimeSpan.FromMilliseconds(500),
+                                EasingFunction = outElastic
+                            };
+                            dazed = true;
+                            imgDaze.Visibility = Visibility.Visible;
+                            imgDaze.BeginAnimation(Canvas.LeftProperty, inflictDazeShake);
+                            HealthShake(4);
                             break;
                             // add more
                         default:
                             ScreenShake(10);
                             break;
                     }
+                }
+
+                if (vulnerableTimer > 0 && vulnerabilityUsed == false)
+                {
+                    vulnerableTimer--;
+                    txtVulnerable.Text = vulnerableTimer.ToString();
+                    if (vulnerableTimer == 0)
+                    {
+                        imgVulnerable.Visibility = Visibility.Hidden;
+                        txtVulnerable.Visibility = Visibility.Hidden;
+                    }
+                }
+                else if (vulnerableTimer == 0 && vulnerabilityUsed == false)
+                {
+                    imgVulnerable.Visibility = Visibility.Hidden;
+                    txtVulnerable.Visibility = Visibility.Hidden;
                 }
             }
         }
@@ -303,15 +459,36 @@ namespace MOTHBALL_WPF
                 From = Color.FromRgb(186, 48, 48)
             };
 
+            var greenHealth = new ColorAnimation
+            {
+                From = Color.FromRgb(32, 210, 32)
+            };
+
             switch (toShake)
             {
-                case 0: // player
+                case 0: // player damage
+                    txtPlayerHealth.Text = "Your Health: " + playerHealth + "/" + MAX_P_HEALTH;
                     txtPlayerHealth.BeginAnimation(Canvas.LeftProperty, shakeHealth);
                     txtPlayerHealth.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, redHealth);
                     break;
-                case 1: // enemy
+                case 1: // enemy damage
+                    PlayMedia(0);
+                    txtEnemyHealth.Text = "Enemy Health: " + enemyHealth + "/" + MAX_E_HEALTH;
                     txtEnemyHealth.BeginAnimation(Canvas.LeftProperty, shakeHealth);
                     txtEnemyHealth.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, redHealth);
+                    imgEnemy.BeginAnimation(Canvas.LeftProperty, shakeEnemy);
+                    break;
+                case 2: // player heal
+                    txtPlayerHealth.Text = "Your Health: " + playerHealth + "/" + MAX_P_HEALTH;
+                    txtPlayerHealth.BeginAnimation(Canvas.LeftProperty, shakeHealth);
+                    txtPlayerHealth.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, greenHealth);
+                    break;
+                case 3: // enemy heal
+                    txtEnemyHealth.Text = "Enemy Health: " + enemyHealth + "/" + MAX_E_HEALTH;
+                    txtEnemyHealth.BeginAnimation(Canvas.LeftProperty, shakeHealth);
+                    txtEnemyHealth.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, greenHealth);
+                    break;
+                case 4: // enemy status applied
                     imgEnemy.BeginAnimation(Canvas.LeftProperty, shakeEnemy);
                     break;
                 default:
@@ -330,6 +507,44 @@ namespace MOTHBALL_WPF
             };
 
             wnd.BeginAnimation(Window.LeftProperty, shakeScreen);
+        }
+
+        void EnemyDies()
+        {
+            ProgressBarUpdate(prgBar, 0);
+            txtNextEvent.Text = "ur winner";
+        }
+
+        async void PlayerDies(int reason)
+        {
+            var shakeScreen = new DoubleAnimation
+            {
+                From = 420,
+                To = 320,
+                Duration = TimeSpan.FromMilliseconds(1000),
+                EasingFunction = outElastic
+            };
+
+            wnd.BeginAnimation(Window.LeftProperty, shakeScreen);
+            await Task.Delay(2000);
+            InitializeEncounter();
+        }
+
+        SoundPlayer enemyHurt = new SoundPlayer(Properties.Resources.enemyHurt);
+        void PlayMedia(int snd)
+        {
+            switch (snd)
+            {
+                case 0: // enemy damage
+                    enemyHurt.Play();
+
+                    //mPlayer.Open(new Uri(@"pack://application:,,,/enemyHurt.wav")); // FIX THIS
+                    //mPlayer.Position = TimeSpan.Zero;
+                    //mPlayer.Play();
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void recCard1Bounds_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard1, null, 0); UpdateDecription(0); }

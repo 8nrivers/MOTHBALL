@@ -42,9 +42,11 @@ namespace MOTHBALL_WPF
             InitializeAnimation();
         }
 
-        Window wnd = Window.GetWindow(Application.Current.MainWindow);
+        readonly Window wnd = Window.GetWindow(Application.Current.MainWindow);
         private void InitializeAnimation()
         {
+            Canvas.SetLeft(imgTransition, 0);
+
             TransitionOut();
 
             var titleBounceAnimation = new DoubleAnimation

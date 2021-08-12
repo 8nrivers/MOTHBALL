@@ -1,36 +1,36 @@
 [
   {
     "id": 0,
-    "name": "Shiv",
+    "name": "Shank",
     "description": "Take pest control into your own hands. Deals 5 damage.",
     "contents": "a5"
   },
 
   {
     "id": 1,
-    "name": "test1",
-    "description": "multi attack x 4 for 5 damage",
-    "contents": "m45"
+    "name": "Multi-Shiv",
+    "description": "Usually you get your indentured workers to do this. Deals 2 damage, 5 times.",
+    "contents": "m52"
   },
 
   {
     "id": 2,
-    "name": "test2",
-    "description": "test2",
-    "contents": ""
+    "name": "Oil Spill",
+    "description": "Spray some of your hard-earned oil as a distraction. Dazes the enemy, cancelling their next action.",
+    "contents": "z"
   },
 
   {
     "id": 3,
-    "name": "test3",
-    "description": "test3",
-    "contents": ""
+    "name": "Punch",
+    "description": "Your own hands. Literally. Deals 2 damage.",
+    "contents": "a2"
   },
 
   {
     "id": 4,
-    "name": "test4",
-    "description": "test4",
-    "contents": ""
+    "name": "Precise Shot",
+    "description": "Hit a weak point, inflicting Vulnerable for 1 turn. This makes each individual hit deal 2 more damage.",
+    "contents": "v1"
   }
 ]

@@ -3,13 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
+using MOTHBALL_WPF.Properties;
+using System.Reflection;
+using System.Windows.Media;
 
 namespace MOTHBALL_WPF
 {
     public static class AppServices
     {
+        public static Assembly assembly = Assembly.GetExecutingAssembly();
+
         public class Cards
         {
             /// <summary>
@@ -35,6 +41,10 @@ namespace MOTHBALL_WPF
         }
 
         public static List<Cards> cards { get; set; }
-        public static int cutsceneNumber;
+        public static int cutsceneNumber { get; set; }
+
+        public static SoundPlayer enemyHurt = new SoundPlayer(Resources.enemyHurt);
+
+        //public static MediaPlayer mPlayer = new MediaPlayer();
     }
 }

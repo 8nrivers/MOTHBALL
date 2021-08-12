@@ -64,6 +64,21 @@
                 <DropShadowEffect/>
             </TextBlock.Effect>
         </TextBlock>
+        <Image x:Name="imgDaze" HorizontalAlignment="Right" VerticalAlignment="Top" Canvas.Left="824" Canvas.Top="160" Height="64" Width="64" Source="assets/daze.png">
+            <Image.Effect>
+                <DropShadowEffect/>
+            </Image.Effect>
+        </Image>
+        <Image x:Name="imgVulnerable" HorizontalAlignment="Right" VerticalAlignment="Top" Canvas.Left="754" Canvas.Top="160" Height="64" Width="64" Source="assets/vulnerable.png">
+            <Image.Effect>
+                <DropShadowEffect/>
+            </Image.Effect>
+        </Image>
+        <TextBlock x:Name="txtVulnerable" Canvas.Left="794" TextWrapping="Wrap" Text="0" Canvas.Top="205" Foreground="#FFDFE0E8" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Top" Width="42" TextAlignment="Center">
+            <TextBlock.Effect>
+                <DropShadowEffect/>
+            </TextBlock.Effect>
+        </TextBlock>
 
         <Image x:Name="imgTransition" Height="720" Canvas.Left="1280" Canvas.Top="0" Width="1280" Source="assets/transitionscreen.png" Panel.ZIndex="10"/>
         <TextBlock x:Name="txtblCard1" Height="224" Width="168" Canvas.Left="742" Canvas.Top="420" Padding="35" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="24" TextWrapping="Wrap" Text="content">
