@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -20,9 +21,76 @@ namespace MOTHBALL_WPF
     /// </summary>
     public partial class TransitionScreen : Page
     {
+        CircleEase outCirc = new CircleEase
+        {
+            EasingMode = EasingMode.EaseOut
+        };
+
+        CircleEase inCirc = new CircleEase
+        {
+            EasingMode = EasingMode.EaseIn
+        };
+
+        readonly Window wnd = Window.GetWindow(Application.Current.MainWindow);
+
         public TransitionScreen()
         {
             InitializeComponent();
+            InitializeAnimation();
+        }
+
+        async void InitializeAnimation()
+        {
+            var wndTransitionEnd = new DoubleAnimation
+            {
+                From = 2460,
+                To = 320,
+                Duration = TimeSpan.FromMilliseconds(1000),
+                EasingFunction = outCirc
+            };
+
+            wnd.BeginAnimation(Window.LeftProperty, wndTransitionEnd);
+
+            var menuBGScroll = new DoubleAnimation
+            {
+                From = -0,
+                To = -1250,
+                Duration = TimeSpan.FromSeconds(30),
+                RepeatBehavior = RepeatBehavior.Forever
+            };
+
+            imgMenuBG.BeginAnimation(Canvas.LeftProperty, menuBGScroll);
+
+            var transitionSlideOut = new DoubleAnimation
+            {
+                From = 0,
+                To = -1280,
+                Duration = TimeSpan.FromMilliseconds(1000),
+                EasingFunction = inCirc
+            };
+
+            imgTransition.BeginAnimation(Canvas.LeftProperty, transitionSlideOut);
+
+            await Task.Delay(3000);
+
+            var transitionSlideIn = new DoubleAnimation
+            {
+                From = 1280,
+                To = 0,
+                Duration = TimeSpan.FromMilliseconds(1000),
+                EasingFunction = outCirc
+            };
+
+            imgTransition.BeginAnimation(Canvas.LeftProperty, transitionSlideIn);
+
+            await Task.Delay(1000);
+            Page gamespace = new GameSpaceA();
+            this.NavigationService.Navigate(gamespace);
+        }
+
+        private void PagMenu_Unloaded(object sender, RoutedEventArgs e)
+        {
+            imgMenuBG.BeginAnimation(Canvas.LeftProperty, null);
         }
     }
 }

@@ -15,5 +15,7 @@
                 <DropShadowEffect/>
             </TextBlock.Effect>
         </TextBlock>
+
+        <Image x:Name="imgTransition" Height="720" Canvas.Left="1280" Canvas.Top="0" Width="1280" Source="assets/transitionscreen.png" Panel.ZIndex="10"/>
     </Canvas>
 </Page>

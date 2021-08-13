@@ -178,8 +178,8 @@ namespace MOTHBALL_WPF
             wnd.BeginAnimation(Window.LeftProperty, wndTransitionStart);
 
             await Task.Delay(1000);
-            Page gamespace = new GameSpaceA();
-            this.NavigationService.Navigate(gamespace);
+            Page transitionScreen = new TransitionScreen();
+            this.NavigationService.Navigate(transitionScreen);
         }
 
         private async void RecExitAnimBounds_MouseDown(object sender, MouseButtonEventArgs e)

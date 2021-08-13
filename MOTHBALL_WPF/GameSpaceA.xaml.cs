@@ -83,15 +83,15 @@ namespace MOTHBALL_WPF
 
         private void InitializeAnimation()
         {
-            var wndTransitionEnd = new DoubleAnimation
-            {
-                From = 2460,
-                To = 320,
-                Duration = TimeSpan.FromMilliseconds(1000),
-                EasingFunction = outCirc
-            };
+            //var wndTransitionEnd = new DoubleAnimation
+            //{
+            //    From = 2460,
+            //    To = 320,
+            //    Duration = TimeSpan.FromMilliseconds(1000),
+            //    EasingFunction = outCirc
+            //};
 
-            wnd.BeginAnimation(Window.LeftProperty, wndTransitionEnd);
+            //wnd.BeginAnimation(Window.LeftProperty, wndTransitionEnd);
 
             var transitionSlideOut = new DoubleAnimation
             {
@@ -179,6 +179,8 @@ namespace MOTHBALL_WPF
             txtNextEvent.Text = enemyActionList[0];
             ProgressBarUpdate(prgBar, 0);
             txtTurnCounter.Text = "Turn 1/5";
+            HealthShake(2);
+            HealthShake(3);
 
             dazed = false;
             imgDaze.Visibility = Visibility.Hidden;
