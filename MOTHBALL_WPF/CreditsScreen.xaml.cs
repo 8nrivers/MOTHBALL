@@ -20,6 +20,14 @@ namespace MOTHBALL_WPF
     /// </summary>
     public partial class CreditsScreen : Page
     {
+        // TO ADD:
+
+        // "Special Spotlight" Kevin MacLeod(incompetech.com)
+        // Licensed under Creative Commons: By Attribution 4.0 License
+        // http://creativecommons.org/licenses/by/4.0/
+
+        // and etc for all kevin macleod songs
+
         public CreditsScreen()
         {
             InitializeComponent();

@@ -6,10 +6,9 @@
       xmlns:local="clr-namespace:MOTHBALL_WPF"
       mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="1280"
-      Title="GameSpaceA">
+      Title="GameSpaceA" Unloaded="pagGameSpaceA_Unloaded">
 
     <Canvas x:Name="cvsScreen" Background="Black">
-        <Image x:Name="imgBattle1BG_Copy" Canvas.Left ="0" Width="2560" Height="720" Source="assets/battle1bg.png" Canvas.Top="-4"/>
         <Image x:Name="imgBattle1BG" Canvas.Left ="0" Width="2560" Height="720" Source="assets/battle1bg.png" Canvas.Top="-4"/>
         <Image x:Name="imgEnemy" Height="480" Width="480" Source="assets/enemy1.png" Canvas.Left="400" Canvas.Top="40" RenderTransformOrigin="0.5,0.5">
             <Image.Effect>
@@ -64,7 +63,7 @@
                 <DropShadowEffect/>
             </TextBlock.Effect>
         </TextBlock>
-        <Image x:Name="imgDaze" HorizontalAlignment="Right" VerticalAlignment="Top" Canvas.Left="824" Canvas.Top="160" Height="64" Width="64" Source="assets/daze.png">
+        <Image x:Name="imgDaze" HorizontalAlignment="Right" VerticalAlignment="Top" Canvas.Left="754" Canvas.Top="160" Height="64" Width="64" Source="assets/daze.png">
             <Image.Effect>
                 <DropShadowEffect/>
             </Image.Effect>
@@ -79,7 +78,18 @@
                 <DropShadowEffect/>
             </TextBlock.Effect>
         </TextBlock>
-
+        <Rectangle x:Name="recExposition" Fill="#BF000000" Stroke="#00000000" Height="720" Canvas.Top="0" Canvas.Left="-1281" Width="1281" Panel.ZIndex="8"/>
+        <TextBlock x:Name="txtExposition" Canvas.Left="-1090" TextWrapping="Wrap" Text="Ever since your company began dumping waste and refuse in the local rivers, packs of terrifying MUTANT INSECTS have been terrorizing your production!
+                   You decide to finally deal with them all to save your profits (and the insurmountable debt of your employees)!" Canvas.Top="200" Foreground="#FFDFE0E8" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Top" Width="900" Height="260" TextAlignment="Center" Panel.ZIndex="9">
+            <TextBlock.Effect>
+                <DropShadowEffect/>
+            </TextBlock.Effect>
+        </TextBlock>
+        <TextBlock x:Name="txtExposition2" Canvas.Left="-1090" TextWrapping="Wrap" Text="Find the right combination of cards to defeat the enemy without going over the turn time limit. Pay attention to the next actions of the enemy, because these will be the same every time you fight them - they might be the key to the solution! Big Oil is counting on you to rid the land of these pests." Canvas.Top="200" Foreground="#FFDFE0E8" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Top" Width="900" Height="260" TextAlignment="Center" Panel.ZIndex="9">
+            <TextBlock.Effect>
+                <DropShadowEffect/>
+            </TextBlock.Effect>
+        </TextBlock>
         <Image x:Name="imgTransition" Height="720" Canvas.Left="1280" Canvas.Top="0" Width="1280" Source="assets/transitionscreen.png" Panel.ZIndex="10"/>
         <TextBlock x:Name="txtblCard1" Height="224" Width="168" Canvas.Left="742" Canvas.Top="420" Padding="35" Foreground="#FFDFE0E8" TextAlignment="Center" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="24" TextWrapping="Wrap" Text="content">
             <TextBlock.Effect>

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using MOTHBALL_WPF.Properties;
 using System.Reflection;
 using System.Windows.Media;
+using System.Windows.Controls;
+using System.Runtime.InteropServices;
 
 namespace MOTHBALL_WPF
 {
@@ -41,10 +43,12 @@ namespace MOTHBALL_WPF
         }
 
         public static List<Cards> cards { get; set; }
-        public static int cutsceneNumber { get; set; }
+        public static int factNumber { get; set; }
 
         public static SoundPlayer enemyHurt = new SoundPlayer(Resources.enemyHurt);
 
-        //public static MediaPlayer mPlayer = new MediaPlayer();
+        public static MediaPlayer mPlayerC1 = new MediaPlayer(); // Channel 1
+        public static MediaPlayer mPlayerC2 = new MediaPlayer(); // Channel 2
+        public static MediaPlayer mPlayerC3 = new MediaPlayer(); // Channel 3, reserved for music
     }
 }

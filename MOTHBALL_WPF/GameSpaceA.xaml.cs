@@ -73,25 +73,17 @@ namespace MOTHBALL_WPF
             LoadCard(txtblCard5, AppServices.cards[4]);
 
             InitializeEncounter();
+            BeginMusicPlayback();
         }
 
-        MediaPlayer mPlayer = new MediaPlayer();
         readonly Window wnd = Window.GetWindow(Application.Current.MainWindow);
 
         static string[] enemyActionList = { "Next: Attacks for 5", "Next: Heals for 5", "Next: Attacks for 6", "Next: Heals for 2", "Next: Attacks for 4", "Time's Up!" };
         static string[] enemyActionContents = { "a5", "h5", "a6", "h2", "a4" };
 
-        private void InitializeAnimation()
+        private async void InitializeAnimation()
         {
-            //var wndTransitionEnd = new DoubleAnimation
-            //{
-            //    From = 2460,
-            //    To = 320,
-            //    Duration = TimeSpan.FromMilliseconds(1000),
-            //    EasingFunction = outCirc
-            //};
-
-            //wnd.BeginAnimation(Window.LeftProperty, wndTransitionEnd);
+            txtExposition2.Opacity = 0;
 
             var transitionSlideOut = new DoubleAnimation
             {
@@ -102,19 +94,6 @@ namespace MOTHBALL_WPF
             };
             
             imgTransition.BeginAnimation(Canvas.LeftProperty, transitionSlideOut);
-
-            var fadeIn = new DoubleAnimation
-            {
-                From = 0,
-                To = 100,
-                Duration = TimeSpan.FromSeconds(8),
-                EasingFunction = inCirc
-            };
-
-            imgBar.BeginAnimation(OpacityProperty, fadeIn);
-            prgBar.BeginAnimation(OpacityProperty, fadeIn);
-            imgEnemy.BeginAnimation(OpacityProperty, fadeIn);
-            txtTurnCounter.BeginAnimation(OpacityProperty, fadeIn);
 
             Storyboard enemyRotate = new Storyboard();
 
@@ -144,6 +123,39 @@ namespace MOTHBALL_WPF
             };
 
             imgBattle1BG.BeginAnimation(Canvas.LeftProperty, battleBGScroll);
+
+            Canvas.SetLeft(recExposition, -1);
+            Canvas.SetLeft(txtExposition, 190);
+            Canvas.SetLeft(txtExposition2, 190);
+
+            await Task.Delay(12000);
+
+            var banishExposition = new DoubleAnimation
+            {
+                From = 1,
+                To = 0,
+                Duration = TimeSpan.FromSeconds(1),
+                EasingFunction = inOutCirc
+            };
+            txtExposition.BeginAnimation(OpacityProperty, banishExposition);
+
+            var actuallyIWantItBack = new DoubleAnimation
+            {
+                From = 0,
+                To = 1,
+                Duration = TimeSpan.FromSeconds(1),
+                EasingFunction = inOutCirc
+            };
+            txtExposition2.BeginAnimation(OpacityProperty, actuallyIWantItBack);
+
+            await Task.Delay(12000);
+
+            recExposition.BeginAnimation(OpacityProperty, banishExposition);
+            txtExposition2.BeginAnimation(OpacityProperty, banishExposition);
+            await Task.Delay(1000);
+            recExposition.Visibility = Visibility.Hidden;
+            txtExposition.Visibility = Visibility.Hidden;
+            txtExposition2.Visibility = Visibility.Hidden;
         }
 
         private void LoadCard(TextBlock item, AppServices.Cards card)
@@ -210,6 +222,19 @@ namespace MOTHBALL_WPF
             bounds.IsEnabled = true;
         }
 
+        void BeginMusicPlayback()
+        {
+            AppServices.mPlayerC3.Open(new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}\assets\Eternity.mp3"));
+            AppServices.mPlayerC3.MediaEnded += new EventHandler(Music_Ended);
+            AppServices.mPlayerC3.Play();
+        }
+
+        void Music_Ended(object sender, EventArgs e)
+        {
+            AppServices.mPlayerC3.Position = TimeSpan.Zero;
+            AppServices.mPlayerC3.Play();
+        }
+
         void UpdateTurn()
         {
             turn += 1;
@@ -261,6 +286,7 @@ namespace MOTHBALL_WPF
                                 break;
                             case 'h': // Basic Heal: 1 parameter
                                 enemyHealth += Int32.Parse(enemyActionContents[index][i + 1].ToString());
+                                PlayMedia(3);
                                 ScreenShake(5);
                                 HealthShake(3);
                                 i++;
@@ -272,6 +298,7 @@ namespace MOTHBALL_WPF
                 }
                 else
                 {
+                    PlayMedia(6);
                     ScreenShake(5);
                     dazed = false;
                     imgDaze.Visibility = Visibility.Hidden;
@@ -379,6 +406,7 @@ namespace MOTHBALL_WPF
                         case 'd': // Basic Defend: 1 parameter (defense points added)
                             break;
                         case 'v': // Inflict Vulnerable: 1 parameter (length of vuln)
+                            PlayMedia(2);
                             var inflictVulnShake = new DoubleAnimation
                             {
                                 From = 794,
@@ -402,9 +430,10 @@ namespace MOTHBALL_WPF
                             i++;
                             break;
                         case 'z': // Inflict Daze
+                            PlayMedia(2);
                             var inflictDazeShake = new DoubleAnimation
                             {
-                                From = 864,
+                                From = 794,
                                 Duration = TimeSpan.FromMilliseconds(500),
                                 EasingFunction = outElastic
                             };
@@ -413,7 +442,6 @@ namespace MOTHBALL_WPF
                             imgDaze.BeginAnimation(Canvas.LeftProperty, inflictDazeShake);
                             HealthShake(4);
                             break;
-                            // add more
                         default:
                             ScreenShake(10);
                             break;
@@ -469,6 +497,7 @@ namespace MOTHBALL_WPF
             switch (toShake)
             {
                 case 0: // player damage
+                    PlayMedia(1);
                     txtPlayerHealth.Text = "Your Health: " + playerHealth + "/" + MAX_P_HEALTH;
                     txtPlayerHealth.BeginAnimation(Canvas.LeftProperty, shakeHealth);
                     txtPlayerHealth.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, redHealth);
@@ -511,10 +540,55 @@ namespace MOTHBALL_WPF
             wnd.BeginAnimation(Window.LeftProperty, shakeScreen);
         }
 
-        void EnemyDies()
+        async void EnemyDies()
         {
+            PlayMedia(5);
+            ScreenShake(50);
             ProgressBarUpdate(prgBar, 0);
-            txtNextEvent.Text = "ur winner";
+            txtNextEvent.Text = "You Win!";
+
+            var deathDrop = new DoubleAnimation
+            {
+                From = 40,
+                To = 720,
+                Duration = TimeSpan.FromSeconds(2),
+                EasingFunction = inCirc
+            };
+
+            var deathOpacity = new DoubleAnimation
+            {
+                To = 0,
+                Duration = TimeSpan.FromSeconds(2),
+                EasingFunction = outCirc
+            };
+
+            imgEnemy.BeginAnimation(Canvas.TopProperty, deathDrop);
+            imgEnemy.BeginAnimation(OpacityProperty, deathOpacity);
+
+            await Task.Delay(2000);
+
+            var wndTransitionStart = new DoubleAnimation
+            {
+                From = 320,
+                To = -1280,
+                Duration = TimeSpan.FromMilliseconds(1000),
+                EasingFunction = inCirc
+            };
+
+            var transitionSlideIn = new DoubleAnimation
+            {
+                From = 1280,
+                To = 0,
+                Duration = TimeSpan.FromMilliseconds(1000),
+                EasingFunction = outCirc
+            };
+
+            imgTransition.BeginAnimation(Canvas.LeftProperty, transitionSlideIn);
+            wnd.BeginAnimation(Window.LeftProperty, wndTransitionStart);
+
+            await Task.Delay(1000);
+            Page transitionScreen = new TransitionScreen();
+            this.NavigationService.Navigate(transitionScreen);
         }
 
         async void PlayerDies(int reason)
@@ -529,20 +603,41 @@ namespace MOTHBALL_WPF
 
             wnd.BeginAnimation(Window.LeftProperty, shakeScreen);
             await Task.Delay(2000);
+            PlayMedia(3);
             InitializeEncounter();
         }
 
-        SoundPlayer enemyHurt = new SoundPlayer(Properties.Resources.enemyHurt);
         void PlayMedia(int snd)
         {
             switch (snd)
             {
                 case 0: // enemy damage
-                    enemyHurt.Play();
-
-                    //mPlayer.Open(new Uri(@"pack://application:,,,/enemyHurt.wav")); // FIX THIS
-                    //mPlayer.Position = TimeSpan.Zero;
-                    //mPlayer.Play();
+                    AppServices.mPlayerC1.Open(new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}\assets\enemyHurt.wav"));
+                    AppServices.mPlayerC1.Play();
+                    break;
+                case 1: // player damage
+                    AppServices.mPlayerC1.Open(new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}\assets\playerHurt.wav"));
+                    AppServices.mPlayerC1.Play();
+                    break;
+                case 2: // debuff inflicted
+                    AppServices.mPlayerC1.Open(new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}\assets\debuff.wav"));
+                    AppServices.mPlayerC1.Play();
+                    break;
+                case 3: // heal
+                    AppServices.mPlayerC1.Open(new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}\assets\heal.wav"));
+                    AppServices.mPlayerC1.Play();
+                    break;
+                case 4: // mouseover card
+                    AppServices.mPlayerC2.Open(new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}\assets\cardSlide.wav"));
+                    AppServices.mPlayerC2.Play();
+                    break;
+                case 5: // enemy defeated
+                    AppServices.mPlayerC1.Open(new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}\assets\defeated.wav"));
+                    AppServices.mPlayerC1.Play();
+                    break;
+                case 6: // status wears off
+                    AppServices.mPlayerC1.Open(new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}\assets\debuffExpire.wav"));
+                    AppServices.mPlayerC1.Play();
                     break;
                 default:
                     break;
@@ -565,6 +660,7 @@ namespace MOTHBALL_WPF
             switch (state)
             {
                 case 0:
+                    PlayMedia(4);
                     var upReactE = new DoubleAnimation
                     {
                         From = 420,
@@ -594,6 +690,12 @@ namespace MOTHBALL_WPF
                 default:
                     break;
             }
+        }
+
+        private void pagGameSpaceA_Unloaded(object sender, RoutedEventArgs e)
+        {
+            ((Storyboard)Resources["Enemy Rotation"]).Stop();
+            imgBattle1BG.BeginAnimation(Canvas.LeftProperty, null);
         }
     }
 }

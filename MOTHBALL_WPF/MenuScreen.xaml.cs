@@ -40,6 +40,7 @@ namespace MOTHBALL_WPF
         {
             InitializeComponent();
             InitializeAnimation();
+            BeginMusicPlayback();
         }
 
         readonly Window wnd = Window.GetWindow(Application.Current.MainWindow);
@@ -89,6 +90,35 @@ namespace MOTHBALL_WPF
             imgMenuBG.BeginAnimation(Canvas.LeftProperty, menuBGScroll);
         }
 
+        void BeginMusicPlayback()
+        {
+            AppServices.mPlayerC3.Open(new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}\assets\Airship Serenity.mp3"));
+            AppServices.mPlayerC3.MediaEnded += new EventHandler(Music_Ended);
+            AppServices.mPlayerC3.Play();
+        }
+
+        void Music_Ended(object sender, EventArgs e)
+        {
+            AppServices.mPlayerC3.Position = TimeSpan.Zero;
+            AppServices.mPlayerC3.Play();
+        }
+        void PlayMedia(int snd)
+        {
+            switch (snd)
+            {
+                case 0: // menu select
+                    AppServices.mPlayerC1.Open(new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}\assets\menuBack.wav"));
+                    AppServices.mPlayerC1.Play();
+                    break;
+                case 1: // menu hover
+                    AppServices.mPlayerC1.Open(new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}\assets\menuSelect.wav"));
+                    AppServices.mPlayerC1.Play();
+                    break;
+                default:
+                    break;
+            }
+        }
+
         async void TransitionOut()
         {
             var transitionSlideOut = new DoubleAnimation
@@ -106,6 +136,7 @@ namespace MOTHBALL_WPF
 
         private void RecStartAnimBounds_MouseEnter(object sender, MouseEventArgs e)
         {
+            PlayMedia(1);
             var upReactE = new DoubleAnimation
             {
                 From = 400,
@@ -132,6 +163,7 @@ namespace MOTHBALL_WPF
 
         private void RecExitAnimBounds_MouseEnter(object sender, MouseEventArgs e)
         {
+            PlayMedia(1);
             var exitReactE = new DoubleAnimation
             {
                 From = 1170,
@@ -158,6 +190,7 @@ namespace MOTHBALL_WPF
 
         private async void RecStartAnimBounds_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            PlayMedia(0);
             var transitionSlideIn = new DoubleAnimation
             {
                 From = 1280,
@@ -184,6 +217,7 @@ namespace MOTHBALL_WPF
 
         private async void RecExitAnimBounds_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            PlayMedia(0);
             var dropScreen = new DoubleAnimation
             {
                 From = 180,
@@ -207,6 +241,7 @@ namespace MOTHBALL_WPF
 
         private void RecCreditsAnimBounds_MouseEnter(object sender, MouseEventArgs e)
         {
+            PlayMedia(1);
             var upReactE = new DoubleAnimation
             {
                 From = 520,
