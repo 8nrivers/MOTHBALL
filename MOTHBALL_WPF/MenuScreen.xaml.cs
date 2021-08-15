@@ -44,6 +44,7 @@ namespace MOTHBALL_WPF
             if (AppServices.visitedMenu == false)
             {
                 BeginMusicPlayback();
+                TransitionOut();
                 AppServices.visitedMenu = true;
             }
         }
@@ -51,10 +52,6 @@ namespace MOTHBALL_WPF
         readonly Window wnd = Window.GetWindow(Application.Current.MainWindow);
         private void InitializeAnimation()
         {
-            Canvas.SetLeft(imgTransition, 0);
-
-            TransitionOut();
-
             var titleBounceAnimation = new DoubleAnimation
             {
                 From = 340,
@@ -126,6 +123,7 @@ namespace MOTHBALL_WPF
 
         async void TransitionOut()
         {
+            Canvas.SetLeft(imgTransition, 0);
             var transitionSlideOut = new DoubleAnimation
             {
                 From = 0,

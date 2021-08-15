@@ -37,7 +37,7 @@ namespace MOTHBALL_WPF
                 RepeatBehavior = RepeatBehavior.Forever
             };
             imgMenuBG.BeginAnimation(Canvas.LeftProperty, menuBGScroll);
-            txtCredits.Text = "KEVIN MACLEOD: In order of appearance: \"Airship Serenity\", \"Eternity\", \"Desert of Lost Souls\", \"Voltaic\", \"One Sly Move\", Kevin MacLeod(incompetech.com) \n Licensed under Creative Commons: By Attribution 4.0 License \n http://creativecommons.org/licenses/by/4.0/ \n \n jsfxr, sound effects";
+            txtCredits.Text = "KEVIN MACLEOD: In order of appearance: \"Airship Serenity\", \"Eternity\", \"Desert of Lost Souls\", \"Voltaic\", \"One Sly Move\", Kevin MacLeod(incompetech.com) \n Licensed under Creative Commons: By Attribution 4.0 License \n http://creativecommons.org/licenses/by/4.0/ \n \n jsfxr, sound effects \n \n http://www.04.jp.org/, 04b03 font";
         }
 
         void PlayMedia(int snd)
