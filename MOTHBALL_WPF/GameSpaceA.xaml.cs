@@ -63,7 +63,7 @@ namespace MOTHBALL_WPF
         bool vulnJustUsed = false;
         int turn;
 
-        const int EXPOSITION_WAIT = 1000; // set to 12000 on release
+        const int EXPOSITION_WAIT = 12000; // set to 12000 on release
 
         public GameSpaceA()
         {

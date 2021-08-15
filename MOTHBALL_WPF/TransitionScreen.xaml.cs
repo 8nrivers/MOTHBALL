@@ -72,7 +72,7 @@ namespace MOTHBALL_WPF
 
             imgTransition.BeginAnimation(Canvas.LeftProperty, transitionSlideOut);
 
-            await Task.Delay(3000);
+            await Task.Delay(8000);
 
             var transitionSlideIn = new DoubleAnimation
             {
@@ -87,17 +87,47 @@ namespace MOTHBALL_WPF
 
         private async void DisplayFact()
         {
-            await Task.Delay(5000);
+            switch (AppServices.factNumber)
+            {
+                case 0:
+                    txtFact.Text = "Did you know? Since the Industrial Revolution, 692 classified species of animals and plants have gone extinct.";
+                    break;
+                case 1:
+                    txtFact.Text = "Did you know? In 1890, a visitor to England wrote \"The heavens were black with smoke, and the smother of the mills, to one whose lungs were unaccustomed to breathing sulphurised air, made itself felt.\"";
+                    break;
+                case 2:
+                    txtFact.Text = "Did you know? During the Industrial Revolution, moths adapted to the sooty and blackened environment by evolving black coats to hide from predators.";
+                    break;
+                case 3:
+                    txtFact.Text = "Did you know? Your actions have doomed the ecosystem for generations to come.";
+                    break;
+                default:
+                    break;
+            }
+
+            await Task.Delay(9000);
 
             switch (AppServices.factNumber)
             {
                 case 0:
-                    Page gamespaceA = new GameSpaceA();
+                    Page gamespaceA = new GameSpaceC();
                     this.NavigationService.Navigate(gamespaceA);
                     break;
                 case 1:
                     Page gamespaceB = new GameSpaceB();
                     this.NavigationService.Navigate(gamespaceB);
+                    break;
+                case 2:
+                    Page gamespaceC = new GameSpaceC();
+                    this.NavigationService.Navigate(gamespaceC);
+                    break;
+                case 3:
+                    var fadeOutFact = new DoubleAnimation
+                    {
+                        To = 0,
+                        Duration = TimeSpan.FromSeconds(3)
+                    };
+                    txtFact.BeginAnimation(OpacityProperty, fadeOutFact);
                     break;
                 default:
                     break;

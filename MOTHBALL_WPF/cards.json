@@ -50,15 +50,15 @@
 
   {
     "id": 7,
-    "name": ".",
-    "description": ".",
-    "contents": "a1"
+    "name": "Bug Spray (TM)",
+    "description": "The be-all and end-all of pest control. Inflicts Vulnerable for 2 turns and 2 Poison.",
+    "contents": "v2p2"
   },
 
   {
     "id": 8,
-    "name": ".",
-    "description": ".",
-    "contents": "a1"
+    "name": "Bull Rush",
+    "description": "This is the final encounter, so it's worth taking some risks. Dazes the enemy, but deals 9 damage to yourself.",
+    "contents": "s9z"
   }
 ]

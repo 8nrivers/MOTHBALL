@@ -10,7 +10,7 @@
 
     <Canvas>
         <Image x:Name="imgMenuBG" Canvas.Left ="0" Width="2560" Height="720" Source="assets/menubg.png" Canvas.Top="-4"/>
-        <TextBlock x:Name="txtEnemyHealth" Canvas.Left="340" TextWrapping="Wrap" Text="educational stuff" Canvas.Top="250" Foreground="#FFDFE0E8" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Top" Width="600" Height="260" TextAlignment="Center">
+        <TextBlock x:Name="txtFact" Canvas.Left="80" TextWrapping="Wrap" Text="educational stuff" Canvas.Top="240" Foreground="#FFDFE0E8" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1120" Height="260" TextAlignment="Center">
             <TextBlock.Effect>
                 <DropShadowEffect/>
             </TextBlock.Effect>
