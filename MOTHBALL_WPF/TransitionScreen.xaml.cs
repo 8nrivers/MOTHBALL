@@ -37,6 +37,7 @@ namespace MOTHBALL_WPF
         {
             InitializeComponent();
             InitializeAnimation();
+            DisplayFact();
         }
 
         async void InitializeAnimation()
@@ -82,10 +83,25 @@ namespace MOTHBALL_WPF
             };
 
             imgTransition.BeginAnimation(Canvas.LeftProperty, transitionSlideIn);
+        }
 
-            await Task.Delay(1000);
-            Page gamespace = new GameSpaceA();
-            this.NavigationService.Navigate(gamespace);
+        private async void DisplayFact()
+        {
+            await Task.Delay(5000);
+
+            switch (AppServices.factNumber)
+            {
+                case 0:
+                    Page gamespaceA = new GameSpaceA();
+                    this.NavigationService.Navigate(gamespaceA);
+                    break;
+                case 1:
+                    Page gamespaceB = new GameSpaceB();
+                    this.NavigationService.Navigate(gamespaceB);
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void PagMenu_Unloaded(object sender, RoutedEventArgs e)

@@ -41,6 +41,8 @@ namespace MOTHBALL_WPF
                 json = reader.ReadToEnd();
             }
 
+            AppServices.mPlayerC3.Volume = 0.3;
+
             AppServices.cards = JsonConvert.DeserializeObject<List<AppServices.Cards>>(json);
 
             frmContent.Content = new MenuScreen();

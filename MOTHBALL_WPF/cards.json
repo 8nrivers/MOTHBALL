@@ -29,8 +29,36 @@
 
   {
     "id": 4,
-    "name": "Precise Shot",
+    "name": "Sharp Shot",
     "description": "Hit a weak point, inflicting Vulnerable for 1 turn. This makes each individual hit deal 2 more damage.",
     "contents": "v1"
+  },
+
+  {
+    "id": 5,
+    "name": "Light Snack",
+    "description": "Chow down on a delicious, mass-produced pastry. Heals 6 health.",
+    "contents": "h6"
+  },
+
+  {
+    "id": 6,
+    "name": "Double Cleave",
+    "description": "One, two! Deals 4 damage, 2 times.",
+    "contents": "m24"
+  },
+
+  {
+    "id": 7,
+    "name": ".",
+    "description": ".",
+    "contents": "a1"
+  },
+
+  {
+    "id": 8,
+    "name": ".",
+    "description": ".",
+    "contents": "a1"
   }
 ]

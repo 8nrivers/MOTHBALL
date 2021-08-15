@@ -76,12 +76,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GameSpaceB.xaml.cs">
+      <DependentUpon>GameSpaceB.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TransitionScreen.xaml.cs">
       <DependentUpon>TransitionScreen.xaml</DependentUpon>
     </Compile>
     <Page Include="CreditsScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GameSpaceB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="GameSpaceA.xaml">
       <SubType>Designer</SubType>
@@ -178,9 +185,11 @@
     <Content Include="assets\Airship Serenity.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="assets\battle2bg.png" />
     <Content Include="assets\Desert of Lost Souls.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="assets\enemy2.png" />
     <Content Include="assets\Eternity.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -190,7 +199,6 @@
     <Content Include="assets\Voltaic.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\enemyHurt.wav" />
     <Resource Include="assets\daze.png" />
     <Content Include="assets\cardslide.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
