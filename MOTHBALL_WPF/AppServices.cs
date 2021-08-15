@@ -44,8 +44,7 @@ namespace MOTHBALL_WPF
 
         public static List<Cards> cards { get; set; }
         public static int factNumber { get; set; }
-
-        public static SoundPlayer enemyHurt = new SoundPlayer(Resources.enemyHurt);
+        public static bool visitedMenu { get; set; }
 
         public static MediaPlayer mPlayerC1 = new MediaPlayer(); // Channel 1
         public static MediaPlayer mPlayerC2 = new MediaPlayer(); // Channel 2

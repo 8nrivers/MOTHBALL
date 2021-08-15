@@ -40,8 +40,10 @@ namespace MOTHBALL_WPF
             DisplayFact();
         }
 
-        async void InitializeAnimation()
+        void InitializeAnimation()
         {
+            txtEndScreen.Opacity = 0;
+
             var wndTransitionEnd = new DoubleAnimation
             {
                 From = 2460,
@@ -71,18 +73,19 @@ namespace MOTHBALL_WPF
             };
 
             imgTransition.BeginAnimation(Canvas.LeftProperty, transitionSlideOut);
+        }
 
-            await Task.Delay(8000);
+        void BeginMusicPlayback()
+        {
+            AppServices.mPlayerC3.Open(new Uri($@"{AppDomain.CurrentDomain.BaseDirectory}\assets\One Sly Move.mp3"));
+            AppServices.mPlayerC3.MediaEnded += new EventHandler(Music_Ended);
+            AppServices.mPlayerC3.Play();
+        }
 
-            var transitionSlideIn = new DoubleAnimation
-            {
-                From = 1280,
-                To = 0,
-                Duration = TimeSpan.FromMilliseconds(1000),
-                EasingFunction = outCirc
-            };
-
-            imgTransition.BeginAnimation(Canvas.LeftProperty, transitionSlideIn);
+        void Music_Ended(object sender, EventArgs e)
+        {
+            AppServices.mPlayerC3.Position = TimeSpan.Zero;
+            AppServices.mPlayerC3.Play();
         }
 
         private async void DisplayFact()
@@ -99,6 +102,7 @@ namespace MOTHBALL_WPF
                     txtFact.Text = "Did you know? During the Industrial Revolution, moths adapted to the sooty and blackened environment by evolving black coats to hide from predators.";
                     break;
                 case 3:
+                    BeginMusicPlayback();
                     txtFact.Text = "Did you know? Your actions have doomed the ecosystem for generations to come.";
                     break;
                 default:
@@ -110,14 +114,44 @@ namespace MOTHBALL_WPF
             switch (AppServices.factNumber)
             {
                 case 0:
-                    Page gamespaceA = new GameSpaceC();
+                    var transitionSlideIn = new DoubleAnimation
+                    {
+                        From = 1280,
+                        To = 0,
+                        Duration = TimeSpan.FromMilliseconds(1000),
+                        EasingFunction = outCirc
+                    };
+
+                    imgTransition.BeginAnimation(Canvas.LeftProperty, transitionSlideIn);
+                    await Task.Delay(1000);
+                    Page gamespaceA = new GameSpaceA();
                     this.NavigationService.Navigate(gamespaceA);
                     break;
                 case 1:
+                    var transitionSlideIn2 = new DoubleAnimation
+                    {
+                        From = 1280,
+                        To = 0,
+                        Duration = TimeSpan.FromMilliseconds(1000),
+                        EasingFunction = outCirc
+                    };
+
+                    imgTransition.BeginAnimation(Canvas.LeftProperty, transitionSlideIn2);
+                    await Task.Delay(1000);
                     Page gamespaceB = new GameSpaceB();
                     this.NavigationService.Navigate(gamespaceB);
                     break;
                 case 2:
+                    var transitionSlideIn3 = new DoubleAnimation
+                    {
+                        From = 1280,
+                        To = 0,
+                        Duration = TimeSpan.FromMilliseconds(1000),
+                        EasingFunction = outCirc
+                    };
+
+                    imgTransition.BeginAnimation(Canvas.LeftProperty, transitionSlideIn3);
+                    await Task.Delay(1000);
                     Page gamespaceC = new GameSpaceC();
                     this.NavigationService.Navigate(gamespaceC);
                     break;
@@ -125,9 +159,32 @@ namespace MOTHBALL_WPF
                     var fadeOutFact = new DoubleAnimation
                     {
                         To = 0,
-                        Duration = TimeSpan.FromSeconds(3)
+                        Duration = TimeSpan.FromSeconds(4)
                     };
                     txtFact.BeginAnimation(OpacityProperty, fadeOutFact);
+                    var fadeInEndScreen = new DoubleAnimation
+                    {
+                        To = 1,
+                        Duration = TimeSpan.FromSeconds(4)
+                    };
+                    txtEndScreen.BeginAnimation(OpacityProperty, fadeInEndScreen);
+
+                    await Task.Delay(8000);
+
+                    var transitionSlideIn4 = new DoubleAnimation
+                    {
+                        From = 1280,
+                        To = 0,
+                        Duration = TimeSpan.FromMilliseconds(1000),
+                        EasingFunction = outCirc
+                    };
+
+                    imgTransition.BeginAnimation(Canvas.LeftProperty, transitionSlideIn4);
+                    await Task.Delay(1000);
+                    AppServices.factNumber = 0;
+                    AppServices.visitedMenu = false;
+                    Page menuScreen = new TransitionScreen();
+                    this.NavigationService.Navigate(menuScreen);
                     break;
                 default:
                     break;

@@ -10,5 +10,21 @@
 
     <Canvas x:Name="cvsScreen">
         <Image x:Name="imgMenuBG" Canvas.Left ="0" Width="2560" Height="720" Source="assets/menubg.png" Canvas.Top="-4"/>
+        <TextBlock x:Name="txtCreditsTitle" Canvas.Left="190" TextWrapping="Wrap" Text="CREDITS:" Canvas.Top="200" Foreground="#FFDFE0E8" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="48" HorizontalAlignment="Left" VerticalAlignment="Top" Width="900" Height="260" TextAlignment="Center" Panel.ZIndex="9">
+            <TextBlock.Effect>
+                <DropShadowEffect/>
+            </TextBlock.Effect>
+        </TextBlock>
+        <TextBlock x:Name="txtCredits" Canvas.Left="190" TextWrapping="Wrap" Text="" Canvas.Top="270" Foreground="#FFDFE0E8" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="900" Height="260" TextAlignment="Center" Panel.ZIndex="9">
+            <TextBlock.Effect>
+                <DropShadowEffect/>
+            </TextBlock.Effect>
+        </TextBlock>
+        <Image x:Name="imgExit" HorizontalAlignment="Right" VerticalAlignment="Top" Canvas.Left="1170" Canvas.Top="30" Height="56" Width="56" Source="assets/exit.png">
+            <Image.Effect>
+                <DropShadowEffect/>
+            </Image.Effect>
+        </Image>
+        <Rectangle x:Name="recExitAnimBounds" Fill="#00F4F4F5" Height="56" Canvas.Left="1170" Stroke="#00000000" Canvas.Top="30" Width="56" MouseEnter="RecExitAnimBounds_MouseEnter" MouseLeave="RecExitAnimBounds_MouseLeave" MouseDown="RecExitAnimBounds_MouseDown"/>
     </Canvas>
 </Page>

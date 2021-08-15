@@ -15,7 +15,11 @@
                 <DropShadowEffect/>
             </TextBlock.Effect>
         </TextBlock>
-
+        <TextBlock x:Name="txtEndScreen" Canvas.Left="80" TextWrapping="Wrap" Text="THE END" Canvas.Top="254" Foreground="#FFDFE0E8" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="180" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1120" Height="205" TextAlignment="Center">
+            <TextBlock.Effect>
+                <DropShadowEffect/>
+            </TextBlock.Effect>
+        </TextBlock>
         <Image x:Name="imgTransition" Height="720" Canvas.Left="1280" Canvas.Top="0" Width="1280" Source="assets/transitionscreen.png" Panel.ZIndex="10"/>
     </Canvas>
 </Page>

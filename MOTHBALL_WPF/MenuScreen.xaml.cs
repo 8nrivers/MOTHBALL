@@ -40,7 +40,12 @@ namespace MOTHBALL_WPF
         {
             InitializeComponent();
             InitializeAnimation();
-            BeginMusicPlayback();
+
+            if (AppServices.visitedMenu == false)
+            {
+                BeginMusicPlayback();
+                AppServices.visitedMenu = true;
+            }
         }
 
         readonly Window wnd = Window.GetWindow(Application.Current.MainWindow);
@@ -264,6 +269,13 @@ namespace MOTHBALL_WPF
             };
 
             imgCredits.BeginAnimation(Canvas.TopProperty, upReactD);
+        }
+
+        private void recCreditsAnimBounds_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            PlayMedia(0);
+            Page creditsScreen = new CreditsScreen();
+            this.NavigationService.Navigate(creditsScreen);
         }
     }
 }

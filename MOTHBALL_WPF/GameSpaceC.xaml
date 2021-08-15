@@ -43,7 +43,7 @@
                 <DropShadowEffect/>
             </TextBlock.Effect>
         </TextBlock>
-        <TextBlock x:Name="txtCardName" Canvas.Left="928" TextWrapping="Wrap" Text="" Padding="8" Canvas.Top="198" Foreground="#FFAD2F45" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Top" Width="318" Height="42" Background="#19000000">
+        <TextBlock x:Name="txtCardName" Canvas.Left="928" TextWrapping="Wrap" Text="" Padding="8" Canvas.Top="194" Foreground="#FFAD2F45" FontFamily="/MOTHBALL_WPF;component/#04b03" FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Top" Width="318" Height="42" Background="#19000000">
             <TextBlock.Effect>
                 <DropShadowEffect/>
             </TextBlock.Effect>

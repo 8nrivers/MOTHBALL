@@ -68,7 +68,7 @@ namespace MOTHBALL_WPF
         int turn;
         bool playerTurnReady = true;
 
-        const int EXPOSITION_WAIT = 1000; // make this 12000
+        const int EXPOSITION_WAIT = 12000; // make this 12000
 
         public GameSpaceC()
         {
@@ -76,7 +76,7 @@ namespace MOTHBALL_WPF
             InitializeAnimation();
             LoadCard(txtblCard1, AppServices.cards[5]);
             LoadCard(txtblCard2, AppServices.cards[8]);
-            LoadCard(txtblCard3, AppServices.cards[2]);
+            LoadCard(txtblCard3, AppServices.cards[3]);
             LoadCard(txtblCard4, AppServices.cards[7]);
             LoadCard(txtblCard5, AppServices.cards[6]);
             LoadCard(txtblCard6, AppServices.cards[1]);
@@ -195,7 +195,7 @@ namespace MOTHBALL_WPF
         {
             recCard1Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, txtblCard1, recCard1Bounds, 5, turn); };
             recCard2Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, txtblCard2, recCard2Bounds, 8, turn); };
-            recCard3Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, txtblCard3, recCard3Bounds, 2, turn); };
+            recCard3Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, txtblCard3, recCard3Bounds, 3, turn); };
             recCard4Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, txtblCard4, recCard4Bounds, 7, turn); };
             recCard5Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, txtblCard5, recCard5Bounds, 6, turn); };
             recCard6Bounds.MouseDown += delegate (object sender, MouseButtonEventArgs e) { CardClick(sender, e, txtblCard6, recCard6Bounds, 1, turn); };
@@ -781,6 +781,7 @@ namespace MOTHBALL_WPF
             PlayMedia(5);
             ScreenShake(50);
             ProgressBarUpdate(prgBar, 0);
+            AppServices.mPlayerC3.Stop();
             txtNextEvent.Text = "You Win!";
 
             var deathDrop = new DoubleAnimation
@@ -890,7 +891,7 @@ namespace MOTHBALL_WPF
         private void recCard1Bounds_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard1, recCard1Bounds, 1); }
         private void recCard2Bounds_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard2, null, 0); UpdateDecription(8); }
         private void recCard2Bounds_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard2, recCard2Bounds, 1); }
-        private void recCard3Bounds_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard3, null, 0); UpdateDecription(2); }
+        private void recCard3Bounds_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard3, null, 0); UpdateDecription(3); }
         private void recCard3Bounds_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard3, recCard3Bounds, 1); }
         private void recCard4Bounds_MouseEnter(object sender, MouseEventArgs e) { CardReacts(txtblCard4, null, 0); UpdateDecription(7); }
         private void recCard4Bounds_MouseLeave(object sender, MouseEventArgs e) { CardReacts(txtblCard4, recCard4Bounds, 1); }
