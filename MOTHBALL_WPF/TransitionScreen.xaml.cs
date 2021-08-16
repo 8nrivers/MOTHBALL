@@ -183,7 +183,7 @@ namespace MOTHBALL_WPF
                     await Task.Delay(1000);
                     AppServices.factNumber = 0;
                     AppServices.visitedMenu = false;
-                    Page menuScreen = new TransitionScreen();
+                    Page menuScreen = new MenuScreen();
                     this.NavigationService.Navigate(menuScreen);
                     break;
                 default:
